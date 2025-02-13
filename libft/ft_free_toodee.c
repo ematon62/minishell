@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_free_toodee.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/12 11:21:08 by ematon           ###   ########.fr       */
+/*   Created: 2025/01/12 18:32:35 by ematon            #+#    #+#             */
+/*   Updated: 2025/01/19 12:02:46 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "libft.h"
 
-# include "libft.h"
+void	ft_free_toodee(void **ptr)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
+}

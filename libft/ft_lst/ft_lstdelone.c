@@ -1,18 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/12 11:21:08 by ematon           ###   ########.fr       */
+/*   Created: 2024/10/20 15:15:49 by ematon            #+#    #+#             */
+/*   Updated: 2025/01/12 21:02:21 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "../libft.h"
 
-# include "libft.h"
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (lst != NULL)
+	{
+		del(lst->content);
+		free(lst);
+	}
+}
 
-#endif
+// void	del(void *content)
+// {
+// 	content = 0;
+// }
+
+// int main (void)
+// {
+//     int a = 3;
+//     int *content = &a;
+//     t_list  *elem1 = ft_lstnew(content);
+// 	ft_lstdelone(elem1, del);
+// 	printf("%p", elem1);
+// }

@@ -6,11 +6,21 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:41:58 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/11 09:59:07 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/11 15:37:21 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern struct sigaction	sigac;
+
+void	catch_signal(int signal)
+{
+	if (signal == SIGINT)
+		ft_printf("youpi\n");
+	if (signal == SIGQUIT)
+		ft_printf("youpooo\n");
+}
 
 int	main(void)
 {

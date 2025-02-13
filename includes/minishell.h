@@ -6,20 +6,19 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:23 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/11 10:35:50 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/13 20:55:19 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-#include "libft.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <linux/limits.h>
+# include "parsing.h"
+# include "executing.h"
 
-typedef enum e_token
-{
-	CMD,
-	CLA,
-	PIPE
-} token;
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <linux/limits.h>
+# include <signal.h>
+
+#endif

@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/12 11:21:08 by ematon           ###   ########.fr       */
+/*   Created: 2024/10/17 11:38:22 by ematon            #+#    #+#             */
+/*   Updated: 2024/12/02 13:10:00 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "libft.h"
 
-# include "libft.h"
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
 
-#endif
+// int main(void)
+// {
+// 	int fd = open("test_file", O_WRONLY);
+// 	ft_putchar_fd('\0', fd);
+// 	close(fd);
+// }

@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/12 11:21:08 by ematon           ###   ########.fr       */
+/*   Created: 2024/10/16 21:08:52 by ematon            #+#    #+#             */
+/*   Updated: 2024/12/02 13:09:16 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "libft.h"
 
-# include "libft.h"
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void		*ptr;
+	size_t		i;
 
-#endif
+	i = 0;
+	if (!nmemb && !size && ((nmemb * size) / size != nmemb))
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (ptr == NULL)
+		return (NULL);
+	return (ft_memset(ptr, 0, nmemb * size));
+}
+
+// int main(void)
+// {
+// 	char *d2 = ft_calloc(INT_MAX, 2);
+// 	printf("%p", d2);
+// }

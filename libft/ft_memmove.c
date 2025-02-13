@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/12 11:21:08 by ematon           ###   ########.fr       */
+/*   Created: 2024/10/15 19:08:18 by ematon            #+#    #+#             */
+/*   Updated: 2024/12/02 13:10:00 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "libft.h"
 
-# include "libft.h"
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	char		*ptrd;
+	char		*ptrs;
 
-#endif
+	ptrd = (char *)dest;
+	ptrs = (char *)src;
+	if (!dest && !src)
+		return (NULL);
+	if (ptrd <= ptrs)
+	{
+		while (n--)
+			*ptrd++ = *ptrs++;
+	}
+	else
+	{
+		ptrd += n - 1;
+		ptrs += n - 1;
+		while (n--)
+			*ptrd-- = *ptrs--;
+	}
+	return (dest);
+}
