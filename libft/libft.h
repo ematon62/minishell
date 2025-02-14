@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:33:23 by ematon            #+#    #+#             */
-/*   Updated: 2025/01/19 18:01:19 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/14 16:03:43 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,19 @@
 # define LIBFT_H
 
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <limits.h>
+# include <stdbool.h>
+# include <sys/time.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/errno.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_list
 {

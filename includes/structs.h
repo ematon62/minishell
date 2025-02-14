@@ -6,12 +6,14 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/14 11:53:47 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/14 16:42:59 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+# include "utils.h"
 
 typedef struct s_env_lst
 {
@@ -26,7 +28,7 @@ typedef struct s_shell
 	t_env_lst	*env;
 	char		*path;
 	int			exit_status;
-	int			signal;
+	
 }	t_shell;
 
 typedef enum e_type

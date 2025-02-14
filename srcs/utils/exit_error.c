@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 19:39:23 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/14 13:31:55 by ematon           ###   ########.fr       */
+/*   Created: 2025/02/14 13:36:22 by ematon            #+#    #+#             */
+/*   Updated: 2025/02/14 13:42:39 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+# include "utils.h"
 
-# include "parsing.h"
-# include "executing.h"
-
-#endif
+void	exit_error(char *s)
+{
+	perror(s);
+	exit(EXIT_FAILURE);
+}

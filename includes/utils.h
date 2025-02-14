@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 19:39:23 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/14 13:31:55 by ematon           ###   ########.fr       */
+/*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
+/*   Updated: 2025/02/14 16:43:08 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "parsing.h"
-# include "executing.h"
+# include "libft.h"
+
+void	exit_error(char *s);
 
 #endif
