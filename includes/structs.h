@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/13 20:55:47 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/14 11:53:47 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 typedef struct s_env_lst
 {
 	struct s_env_lst	*next;
-	char				*variable;
+	char				*key;
+	char				*value;
+	bool				is_env;
 }	t_env_lst;
 
 typedef struct s_shell
