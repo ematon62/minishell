@@ -1,1 +1,8 @@
 .vscode
+<<<<<<< HEAD
+=======
+srcs/parsing
+includes/parsing.h
+.gitignore
+
+>>>>>>> 00e6452603abcef21193838612976ca92b722750
