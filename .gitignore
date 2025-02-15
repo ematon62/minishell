@@ -1,2 +1,5 @@
 .vscode
 srcs/parsing
+includes/parsing.h
+.gitignore
+
