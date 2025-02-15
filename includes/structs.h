@@ -6,14 +6,14 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/14 16:42:59 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:44:13 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# include "utils.h"
+# include <stdbool.h>
 
 typedef struct s_env_lst
 {
@@ -22,14 +22,6 @@ typedef struct s_env_lst
 	char				*value;
 	bool				is_env;
 }	t_env_lst;
-
-typedef struct s_shell
-{
-	t_env_lst	*env;
-	char		*path;
-	int			exit_status;
-	
-}	t_shell;
 
 typedef enum e_type
 {
@@ -57,7 +49,15 @@ typedef struct s_cmd
 typedef struct s_cmds
 {
 	struct s_cmds	*next;
-	t_cmd			cmd;
+	t_cmd			*cmd;
 }	t_cmds;
+
+typedef struct s_shell
+{
+	t_env_lst	*env;
+	t_cmds		*cmds;
+	char		**path;
+	int			exit_status;
+}	t_shell;
 
 #endif
