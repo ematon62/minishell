@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:41:58 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 13:44:48 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/15 19:02:29 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 			if (!input)
 				break ;
 			add_history(input);
-			cmds = parse(input, shell);
+			cmds = parse(input);
 			if (!cmds)
 				continue ;
 		}
