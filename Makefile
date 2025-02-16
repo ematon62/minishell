@@ -12,6 +12,7 @@ MAKEFLAGS += --no-print-directory
 SRCS := $(SRCS_PATH)/main.c\
 		$(SRCS_PATH)/parsing/init_shell.c\
 		$(SRCS_PATH)/parsing/parsing.c\
+		$(SRCS_PATH)/parsing/tokens.c\
 		$(SRCS_PATH)/parsing/check_quote.c\
 		$(SRCS_PATH)/utils/exit_error.c\
 		$(SRCS_PATH)/utils/lst_utils.c\

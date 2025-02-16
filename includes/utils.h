@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 11:07:07 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/16 18:44:10 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@
 # include "libft.h"
 # include "structs.h"
 
+//Gestion d'erreur
 void		exit_error(char *s);
+
+//Listes chainees
 t_env_lst	*lst_env_new(char *key, char *value);
+t_token_lst	*token_lst_new(t_token type);
+
+//Gestion de mémoire
 void		free_shell(t_shell *shell);
 
 #endif

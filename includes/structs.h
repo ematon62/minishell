@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 13:44:13 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/16 18:44:04 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 # define STRUCTS_H
 
 # include <stdbool.h>
+
+typedef enum e_token
+{
+	WORD,
+	IO_IN,
+	IO_OUT,
+	IO_HEREDOC,
+	IO_APPEND,
+	IO_PIPE
+}	t_token;
+
+typedef struct s_token_lst
+{
+	struct s_token_lst	*next;
+	t_token	type;
+}	t_token_lst;
 
 typedef struct s_env_lst
 {

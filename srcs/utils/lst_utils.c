@@ -6,15 +6,14 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:54:48 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 13:45:54 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/16 16:38:54 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "parsing.h"
 
-/*
-Polymorphisme de la fonction de la libft
-*/
+//Polymorphismes de la fonction de la libft ft_lst_new
+
 t_env_lst	*lst_env_new(char *key, char *value)
 {
 	t_env_lst	*elem;
@@ -33,4 +32,16 @@ t_env_lst	*lst_env_new(char *key, char *value)
 		exit_error("malloc");
 	elem->is_env = true;
 	return (elem);
+}
+
+t_token_lst	*token_lst_new(t_token type)
+{
+	t_token_lst	*new;
+
+	new = malloc(sizeof(t_env_lst));
+	if (!new)
+		exit_error("malloc");
+	new->type = type;
+	new->next = NULL;
+	return (new);
 }
