@@ -6,11 +6,25 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 10:39:37 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/17 09:14:14 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 17:44:01 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+void	free_tokens_lst(t_token_lst *tokens)
+{
+	t_token_lst	*temp;
+
+	while (tokens)
+	{
+		temp = tokens->next;
+		if (tokens->token)
+			free(tokens->token);
+		free(tokens);
+		tokens = temp;
+	}
+}
 
 void	free_env_vars(t_env_lst	*env_vars)
 {

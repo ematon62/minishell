@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
+/*   tokenizer_get_words.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 19:03:25 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/17 14:39:59 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 17:48:16 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*get_next_word(char *str, int *i)
+static char	*separate_next(char *str, int *i)
 {
 	char	*substr;
 	int		len;
@@ -57,7 +57,7 @@ t_token_lst	*remove_spaces(char *input)
 	first = NULL;
 	while (input[i])
 	{
-		substr = get_next_word(input, &i);
+		substr = separate_next(input, &i);
 		if (!substr)
 			exit_error("malloc");
 		if (!substr[0])
@@ -68,44 +68,8 @@ t_token_lst	*remove_spaces(char *input)
 		new = token_lst_new(UNDEFINED, substr);
 		if (!new)
 			exit_error("malloc");
-		ft_lstadd_back((t_list ** )&first, (t_list *)new); 
+		ft_lstadd_back((t_list **)&first, (t_list *)new);
 		free(substr);
 	}
 	return (first);
-}
-
-t_token_lst	*get_next_token(char *word, int *i)
-{
-	char	*substr;
-	int		len;
-}
-
-t_token_lst	*tokenize(t_token_lst *current)
-{
-	int			i;
-	int			len;
-	char		*current_token;
-	t_token		current_type;
-	t_token_lst	*new;
-
-	i = 0;
-	new = NULL;
-	while (current_token[i])
-	{
-		
-	}
-}
-
-t_token_lst	*lexer(t_token_lst *first)
-{
-	t_token_lst	*current;
-	
-	t_token_lst	*tokens;
-
-	tokens = NULL;
-	current = first;
-	while (current)
-	{
-		
-	}
 }

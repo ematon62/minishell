@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/17 13:22:05 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:55:37 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum e_token
 	UNDEFINED
 }	t_token;
 
+//NULL si type = PIPE, IO_IN, IO_OUT, IO_APPEND, IO_HEREDOC
 typedef struct s_token_lst
 {
 	struct s_token_lst	*next;

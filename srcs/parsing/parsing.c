@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/17 14:02:38 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 17:29:50 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_cmds	*parse(char *input)
 {
+	// t_token_lst	*tokens;
+
 	if (is_unclosed_quote(input))
 		return (ft_putstr_fd(MATCHING_ERR, STDERR_FILENO), NULL);
 	return ((t_cmds *)1);
