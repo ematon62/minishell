@@ -6,13 +6,13 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:52:29 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 18:59:40 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 13:08:06 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static void	change_quote_status(bool *quote)
+void	change_quote_status(bool *quote)
 {
 	if (*quote)
 		*quote = false;

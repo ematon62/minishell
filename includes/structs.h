@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/16 18:44:04 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 13:22:05 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ typedef enum e_token
 	IO_OUT,
 	IO_HEREDOC,
 	IO_APPEND,
-	IO_PIPE
+	IO_PIPE,
+	UNDEFINED
 }	t_token;
 
 typedef struct s_token_lst
 {
 	struct s_token_lst	*next;
-	t_token	type;
+	char				*token;
+	t_token				type;
 }	t_token_lst;
 
 typedef struct s_env_lst
@@ -72,7 +74,6 @@ typedef struct s_shell
 {
 	t_env_lst	*env;
 	t_cmds		*cmds;
-	char		**path;
 	int			exit_status;
 }	t_shell;
 

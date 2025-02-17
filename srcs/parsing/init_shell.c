@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:39:38 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 18:55:05 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 08:26:44 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ t_shell	*init_shell(char **envp)
 		exit_error("malloc");
 	shell->cmds = NULL;
 	shell->env = NULL;
-	shell->path = NULL;
 	shell->exit_status = -1;
 	shell->env = get_env_vars(envp);
-	shell->path = ft_split(getenv("PATH"), ':');
-	if (!shell->path)
-		exit_error("malloc");
 	return (shell);
 }
