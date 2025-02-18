@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 13:44:13 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 22:11:00 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 # define STRUCTS_H
 
 # include <stdbool.h>
+
+typedef enum e_token
+{
+	WORD,
+	IO_IN,
+	IO_OUT,
+	IO_HEREDOC,
+	IO_APPEND,
+	IO_PIPE,
+	UNDEFINED
+}	t_token;
+
+//NULL si type = PIPE, IO_IN, IO_OUT, IO_APPEND, IO_HEREDOC
+typedef struct s_token_lst
+{
+	struct s_token_lst	*next;
+	char				*token;
+	t_token				type;
+}	t_token_lst;
 
 typedef struct s_env_lst
 {
@@ -56,7 +75,6 @@ typedef struct s_shell
 {
 	t_env_lst	*env;
 	t_cmds		*cmds;
-	char		**path;
 	int			exit_status;
 }	t_shell;
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:41:58 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/15 13:44:48 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/17 00:28:02 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executing.h"
 
 extern int	g_exit_signal;
 
@@ -34,6 +34,8 @@ int	main(int argc, char **argv, char **envp)
 			cmds = parse(input, shell);
 			if (!cmds)
 				continue ;
+			execute(cmds, shell);
+			free(input);
 		}
 	}
 	free_shell(shell);
