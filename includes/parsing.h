@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 17:04:31 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:29:14 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "utils.h"
 
-# define MATCHING_QUOTE "bash: unexpected EOF while looking for matching quote\n"
+# define MATCHING "bash: unexpected EOF while looking for matching quote\n"
 # define UNEXPECTED_EOF "bash: syntax error: unexpected end of file\nexit\n"
 # define SYNTAX "bash: syntax error\n"
 

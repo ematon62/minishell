@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:39:38 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 10:10:25 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:30:43 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_env_lst	*get_env_vars(char **envp, t_shell *shell)
 	{
 		split = ft_split(envp[i], '=');
 		if (!split)
-			return (free_env_vars(current), free_shell(shell), 
+			return (free_env_vars(current), free_shell(shell),
 				exit_error("malloc"), NULL);
 		new = lst_env_new(split[0], split[1]);
 		if (!new || !new->key || !new->value)

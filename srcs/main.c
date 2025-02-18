@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:41:58 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 18:22:17 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:29:43 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 			if (!input)
 				break ;
 			if (input[0] == '\n')
-				continue;
+				continue ;
 			shell->cmds = parse(input, shell);
 			if (!shell->cmds)
 				continue ;
