@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 19:03:25 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 10:47:09 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 14:09:41 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_token_lst	*remove_spaces(char *input, t_shell *shell)
 	char		*substr;
 	int			i;
 
+	(void)shell;
 	i = 0;
 	first = NULL;
 	while (input[i])
@@ -59,13 +60,14 @@ t_token_lst	*remove_spaces(char *input, t_shell *shell)
 		substr = separate_next(input, &i);
 		if (!substr)
 			return (free_tokens_lst(first), free_shell(shell),
-				exit_error("malloc"), NULL);
+				free(input), exit_error("malloc"), NULL);
 		if (!substr[0])
 			return (free(substr), first);
 		new = token_lst_new(UNDEFINED, substr);
-		if (!new)
+		if (!new || (new->type == WORD && !new->token))
 			return (free(substr), free_tokens_lst(first),
-				free_shell(shell), exit_error("malloc"), NULL);
+				free_shell(shell), free_tokens_lst(new),
+				free(input), exit_error("malloc"), NULL);
 		ft_lstadd_back((t_list **)&first, (t_list *)new);
 		free(substr);
 	}

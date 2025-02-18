@@ -6,13 +6,13 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:36:22 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 10:08:02 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 13:20:32 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	exit_error(char *s, t_shell *shell, t_token_lst *tokens)
+void	exit_error(char *s)
 {
 	perror(s);
 	exit(EXIT_FAILURE);

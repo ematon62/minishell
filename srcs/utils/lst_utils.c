@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:54:48 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 10:49:57 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 16:59:34 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,20 @@ t_token_lst	*token_lst_new(t_token type, char *token)
 	if (!new)
 		return (NULL);
 	new->next = NULL;
+	new->type = type;
 	new->token = NULL;
 	if (token)
 		new->token = ft_strdup(token);
-	new->type = type;
 	return (new);
+}
+t_token_lst	*token_lst_last(t_token_lst *tokens)
+{
+	t_token_lst	*last;
+
+	last = tokens;
+	if (last == NULL)
+		return (NULL);
+	while (last->next != NULL)
+		last = last->next;
+	return (last);
 }

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 19:03:25 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 10:55:31 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 14:11:33 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static t_token_lst	*tokenize_node(t_token_lst *current, t_shell *shell)
 	while (current->token[i])
 	{
 		new_node = get_next_token(current->token, &i);
-		if (!new_node || new_node->token)
+		if (!new_node || (new_node->type == WORD && !new_node->token))
 			return (free_tokens_lst(new_node),
 				free_tokens_lst(new_lst),
 				free_shell(shell),
@@ -122,6 +122,7 @@ t_token_lst	*lexer(char *input, t_shell *shell)
 	t_token_lst	*first;
 
 	first = remove_spaces(input, shell);
+	free(input);
 	new = words_to_tokens(first, shell);
 	free_tokens_lst(first);
 	return (new);
