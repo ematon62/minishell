@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:54:48 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/17 17:49:00 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 10:49:57 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ t_env_lst	*lst_env_new(char *key, char *value)
 
 	elem = malloc(sizeof(t_env_lst));
 	if (!elem)
-		exit_error("malloc");
+		return (NULL);
 	elem->next = NULL;
 	elem->key = NULL;
 	elem->value = NULL;
 	elem->key = ft_strdup(key);
-	if (!elem->key)
-		exit_error("malloc");
 	elem->value = ft_strdup(value);
-	if (!elem->value)
-		exit_error("malloc");
 	elem->is_env = true;
 	return (elem);
 }
@@ -40,15 +36,11 @@ t_token_lst	*token_lst_new(t_token type, char *token)
 
 	new = malloc(sizeof(t_env_lst));
 	if (!new)
-		exit_error("malloc");
+		return (NULL);
+	new->next = NULL;
 	new->token = NULL;
 	if (token)
-	{
 		new->token = ft_strdup(token);
-		if (!new->token)
-			exit_error("malloc");
-	}
 	new->type = type;
-	new->next = NULL;
 	return (new);
 }
