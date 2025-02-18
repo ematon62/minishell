@@ -1,6 +1,8 @@
 
 #include "../../../includes/executing.h"
 
+
+
 int	is_valid_env_key(char *key)
 {
 	int	i;
@@ -32,3 +34,30 @@ void	update_env_var(t_env_lst **env, char *key, char *value)
 	add_env_var(env, key, value);
 }
 
+void	remove_env_var(t_env_lst **env, char *key)
+{
+	t_env_lst	*current;
+	t_env_lst	*prev;
+
+	if (!env || !*env || !key)
+		return ;
+	current = *env;
+	prev = NULL;
+	while (current)
+	{
+		if (ft_strcmp(current->key, key) == 0)
+		{
+			if (prev)
+				prev->next = current->next;
+			else
+				*env = current->next;
+			free(current->key);
+			if (current->value)
+				free(current->value);
+			free(current);
+			return ;
+		}
+		prev = current;
+		current = current->next;
+	}
+}

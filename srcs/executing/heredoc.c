@@ -53,11 +53,11 @@ char *find_executable(char *cmd, char **paths)
 }
 
 
-void	handle_heredoc(char *delim)
+void	handle_heredoc(char *delim, t_shell *sh)
 {
 	int		fd;
 	char	*line;
-	// char	*tmp;
+	char	*tmp;
 
 	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
@@ -70,10 +70,10 @@ void	handle_heredoc(char *delim)
 			write(3, "warning: here-doc delimited by end-of-file\n", 43);
 			break ;
 		}
-		// tmp = expand_vars(line, sh);
-		ft_putendl_fd(line, fd);
+		tmp = expand_var(line, sh->env);
+		ft_putendl_fd(tmp, fd);
 		free(line);
-		// free(tmp);
+		free(tmp);
 	}
 	close(fd);
 	fd = open(HEREDOC_FILE, O_RDONLY);

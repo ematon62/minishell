@@ -6,7 +6,7 @@
 /*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/16 22:09:30 by cisse            ###   ########.fr       */
+/*   Updated: 2025/02/18 00:54:37 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@
 /* Execution */
 void		execute(t_cmds *cmds, t_shell *shell);
 void		exec_external(t_cmd *cmd, t_shell *shell);
-void		handle_redirections(t_redirections *redirs);
+void		handle_redirections(t_redirections *redirs, t_shell *sh);
 int			exec_builtin(t_cmd *cmd, t_shell *shell);
 int         is_builtin(char *cmd);
 char        *build_path(char *old_path, char *cmd);
 char        *find_executable(char *cmd, char **paths);
-void        handle_heredoc(char *delim);
+void        handle_heredoc(char *delim, t_shell *sh);
 
 /* Builtins */
 int			builtin_echo(char **args);
@@ -57,3 +57,8 @@ int			builtin_exit(char **args, t_shell *shell);
 int         is_valid_env_key(char *key);
 void        update_env_var(t_env_lst **env, char *key, char *value);
 
+
+
+char	*get_env_value(t_env_lst *env, const char *key);
+void	remove_env_var(t_env_lst **env, char *key);
+char	*expand_var(char *token, t_shell *shell);

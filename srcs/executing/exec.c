@@ -23,13 +23,12 @@ int	exec_builtin(t_cmd *cmd, t_shell *sh)
 	return (0);
 }
 
-
 void	exec_external(t_cmd *cmd, t_shell *sh)
 {
 	char	*path;
 	char	**env_arr;
 
-	path = find_executable(cmd->args[0], sh->path);
+	path = find_executable(cmd->args[0], get_env_value(sh->env, "PATH"));
 	env_arr = env_to_array(sh->env);
 	if (!path)
 	{
@@ -44,7 +43,6 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 	exit(126);
 }
 
-
 static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 {
 	t_cmd	*cmd;
@@ -56,7 +54,7 @@ static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 	if (cmds->next)
 		dup2(fd[1], STDOUT_FILENO);
 	close_pipes(fd_in, fd);
-	handle_redirections(cmd->redirs);
+	handle_redirections(cmd->redirs, sh);
 	if (is_builtin(cmd->args[0]))
 		exit(exec_builtin(cmd, sh));
 	else

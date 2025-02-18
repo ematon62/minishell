@@ -6,7 +6,6 @@
 
 #include "../../../includes/executing.h"
 
-/* Builtin exit */
 int	builtin_exit(char **args, t_shell *sh)
 {
 	int	exit_code;

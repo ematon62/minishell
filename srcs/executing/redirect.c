@@ -31,12 +31,12 @@ static void	redirect_output(char *file, int flags)
 	close(fd);
 }
 
-void	handle_redirections(t_redirections *r)
+void	handle_redirections(t_redirections *r, t_shell *sh)
 {
 	while (r)
 	{
 		if (r->type == IS_HEREDOC)
-			handle_heredoc(r->target);
+			handle_heredoc(r->target, sh);
 		else if (r->type == IS_INREDIR)
 			redirect_input(r->target);
 		else if (r->type == IS_TRUNCAT)

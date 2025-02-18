@@ -3,7 +3,6 @@
 
 #include "../../../includes/executing.h"
 
-/* Builtin echo */
 int	builtin_echo(char **args)
 {
 	int	i;
