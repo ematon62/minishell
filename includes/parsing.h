@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 18:29:14 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/18 20:24:37 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ bool		is_unclosed_quote(char *input);
 void		change_quote_status(bool *quote);
 bool		complete_pipe(t_token_lst *tokens, t_shell *shell);
 bool		check_tokens(t_token_lst *tokens);
+
+char		*expand_var(char *token, t_shell *shell);
 
 #endif
