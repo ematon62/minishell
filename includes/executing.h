@@ -25,6 +25,8 @@
 #include <readline/history.h>
 #include "../libft/libft.h"
 #include "structs.h"
+#include "utils.h"
+#include "parsing.h"
 
 #define BUFFER_SIZE 1024
 #define HEREDOC_FILE "/tmp/heredoc"

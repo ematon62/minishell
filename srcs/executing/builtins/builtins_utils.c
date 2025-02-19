@@ -25,10 +25,33 @@ int	is_valid_env_key(char *key)
 	return (1);
 }
 
+void	add_env_var_end(t_env_lst **env, char *key, char *value)
+{
+	t_env_lst	*current;
+	t_env_lst	*new;
+
+	new = malloc(sizeof(t_env_lst));
+	if (!new)
+		return ;
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	if (new->value[0])
+		new->is_env = true;
+	new->next = NULL;
+	if (!*env)
+	{
+		*env = new;
+		return ;
+	}
+	current = *env;
+	while (current->next)
+		current = current->next;
+	current->next = new;
+}
+
 void	update_env_var(t_env_lst **env, char *key, char *value)
 {
 	t_env_lst	*current;
-	t_env_lst *new;
 
 	current = *env;
 	while (current)
@@ -41,13 +64,7 @@ void	update_env_var(t_env_lst **env, char *key, char *value)
 		}
 		current = current->next;
 	}
-	new = malloc(sizeof(t_env_lst));
-	if (!new)
-		return ;
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	new->next = *env;
-	*env = new;
+	add_env_var_end(env, key, value);
 }
 
 void	remove_env_var(t_env_lst **env, char *key)

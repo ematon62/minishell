@@ -68,3 +68,82 @@ int	builtin_export(char **args, t_shell *sh)
 	}
 	return (ret);
 }
+
+
+int	main(void)
+{
+	t_shell shell;
+	char *args1[] = {"export", "a=", "d1", "d2", "d3", NULL};
+
+	// Initialisation de l'environnement
+	shell.env = NULL;
+	update_env_var(&shell.env, "VAR1", "hello");
+
+	// Affichage avant export
+	printf("🔹 ENV AVANT EXPORT:\n");
+	print_export(shell.env);
+
+	// Test export a=1 2 3
+	printf("\n🚀 Test: export a=1 2 3\n");
+	builtin_export(args1, &shell);
+
+	// Affichage après export
+	printf("\n🔹 ENV APRÈS EXPORT:\n");
+	print_export(shell.env);
+
+	// Libération de l'environnement
+	while (shell.env)
+	{
+		t_env_lst *tmp = shell.env;
+		shell.env = shell.env->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+	}
+
+	return (0);
+}
+
+// int	main(void)
+// {
+// 	t_shell shell;
+// 	char *args1[] = {"export", "VAR3=hello", NULL};
+// 	char *args2[] = {"export", "VAR2=newvalue", NULL};
+// 	char *args3[] = {"export", "INVALID-VAR=value", NULL};
+
+// 	// Initialisation de l'environnement
+// 	shell.env = NULL;
+// 	update_env_var(&shell.env, "VAR1", "hello");
+// 	update_env_var(&shell.env, "VAR2", "world");
+
+// 	// Affichage avant export
+// 	printf("🔹 ENV AVANT EXPORT:\n");
+// 	print_export(shell.env);
+
+// 	// Test export VAR3 (nouvelle variable)
+// 	printf("\n🚀 Test: export VAR3=hello\n");
+// 	builtin_export(args1, &shell);
+// 	print_export(shell.env);
+
+// 	// Test export VAR2 (mise à jour)
+// 	printf("\n🚀 Test: export VAR2=newvalue\n");
+// 	builtin_export(args2, &shell);
+// 	print_export(shell.env);
+
+// 	// Test export avec une clé invalide
+// 	printf("\n🚀 Test: export INVALID-VAR=value\n");
+// 	builtin_export(args3, &shell);
+// 	print_export(shell.env);
+
+// 	// Libération de l'environnement
+// 	while (shell.env)
+// 	{
+// 		t_env_lst *tmp = shell.env;
+// 		shell.env = shell.env->next;
+// 		free(tmp->key);
+// 		free(tmp->value);
+// 		free(tmp);
+// 	}
+
+// 	return (0);
+// } // cc -Wall -Wextra -Werror -I../../../libft -L../../../libft -g export.c builtins_utils.c  -lft
