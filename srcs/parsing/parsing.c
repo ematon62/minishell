@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/26 14:18:21 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/26 14:41:58 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	quoteless(char *token)
 	int		i;
 	bool	in_single;
 	bool	in_double;
-	
+
 	i = 0;
 	j = 0;
 	in_single = false;
