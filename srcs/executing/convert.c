@@ -1,5 +1,14 @@
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-02-26 11:27:10 by adcisse           #+#    #+#             */
+/*   Updated: 2025-02-26 11:27:10 by adcisse          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/executing.h"
 
@@ -34,7 +43,7 @@ char	*create_env_entry(t_env_lst *env)
 
 char	**env_to_array(t_env_lst *env)
 {
-	char    	**env_arr;
+	char		**env_arr;
 	t_env_lst	*current;
 	int			count;
 	int			i;
@@ -59,7 +68,7 @@ char	**env_to_array(t_env_lst *env)
 
 void	free_array(char **env_arr)
 {
-	int i;
+	int	i;
 
 	if (!env_arr)
 		return ;

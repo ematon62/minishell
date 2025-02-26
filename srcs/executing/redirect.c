@@ -53,10 +53,10 @@ static void	redirect_output(char *file, int flags)
 static void	handle_output_redir(t_redirections *r, int *output_done)
 {
 	if (r->type == IS_TRUNCAT)
-        redirect_output(r->target, O_TRUNC);
-    else if (r->type == IS_APPEND)
-        redirect_output(r->target, O_APPEND);
-    *output_done = 1;
+		redirect_output(r->target, O_TRUNC);
+	else if (r->type == IS_APPEND)
+		redirect_output(r->target, O_APPEND);
+	*output_done = 1;
 }
 
 static void	apply_redirections(t_redirections *r, t_redirections *last_input,
@@ -80,12 +80,17 @@ static void	apply_redirections(t_redirections *r, t_redirections *last_input,
 
 int	handle_redirections(t_redirections *r, t_shell *sh)
 {
-	t_redir_state state = {0, 0}; // input_done et output_done initialisés à 0
-	t_redirections *last_output = NULL;
-	t_redirections *last_input;
-	int error = 0;
-	char *err_file = NULL;
+	t_redir_state	state;
+	t_redirections	*last_output;
+	t_redirections	*last_input;
+	int				error;
+	char			*err_file;
 
+	state.input_done = 0;
+	state.output_done = 0;
+	last_output = NULL;
+	error = 0;
+	err_file = NULL;
 	process_heredocs(r, sh);
 	last_input = find_last_input_file(r, &error, &err_file);
 	create_output_files(r, &last_output);

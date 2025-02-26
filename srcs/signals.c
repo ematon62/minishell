@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-02-26 11:33:22 by adcisse           #+#    #+#             */
+/*   Updated: 2025-02-26 11:33:22 by adcisse          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "executing.h"
 
-volatile sig_atomic_t g_signal = 0;
+volatile	sig_atomic_t	g_signal = 0;
 
 static void	sigint_handler(int sig)
 {
@@ -21,7 +33,7 @@ static void	sigquit_handler(int sig)
 {
 	(void)sig;
 	if (g_signal == 1)
-        write(2, "Quit (core dumped)\n", 19);
+		write(2, "Quit (core dumped)\n", 19);
 	g_signal = 131;
 }
 

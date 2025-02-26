@@ -40,7 +40,6 @@ void	append_env_var(t_env_lst **env, t_env_lst *new)
 	current->next = new;
 }
 
-
 void	add_env_var_end(t_env_lst **env, char *key, char *value)
 {
 	t_env_lst	*new;

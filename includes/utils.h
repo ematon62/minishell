@@ -13,7 +13,7 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 # include "structs.h"
 
 //Gestion d'erreur

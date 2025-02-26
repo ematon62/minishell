@@ -37,12 +37,12 @@
 
 typedef struct s_redir_state
 {
-	int input_done;
-	int output_done;
-} t_redir_state;
+	int	input_done;
+	int	output_done;
+}	t_redir_state;
 
 /* Signals */
-extern volatile sig_atomic_t g_signal;
+extern volatile sig_atomic_t	g_signal;
 
 void			setup_signals(void);
 
@@ -64,6 +64,7 @@ void			save_stdio(int std_copy[2]);
 void			restore_stdio(int std_copy[2]);
 char			**env_to_array(t_env_lst *env);
 void			free_array(char **env_arr);
+void			free_utils(char *path, char **all_path, char **env_arr);
 
 /* Builtins */
 int				builtin_echo(char **args);
@@ -82,7 +83,9 @@ void			remove_env_var(t_env_lst **env, char *key);
 char			*expand_var(char *token, t_shell *shell);
 
 /* Redirs */
-t_redirections	*find_last_input_file(t_redirections *r, int *error, char **err_file);
-void			create_output_files(t_redirections *r, t_redirections **last_output);
+t_redirections	*find_last_input_file(t_redirections *r, int *error,
+					char **err_file);
+void			create_output_files(t_redirections *r,
+					t_redirections **last_output);
 void			process_heredocs(t_redirections *r, t_shell *sh);
 void			print_redir_error(char *file);

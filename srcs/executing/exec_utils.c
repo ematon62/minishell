@@ -39,12 +39,12 @@ void	save_stdio(int std_copy[2])
 
 void	restore_stdio(int std_copy[2])
 {
-    if (std_copy[0] != -1)
-        dup2(std_copy[0], STDIN_FILENO);
-    close(std_copy[0]);
-    if (std_copy[1] != -1)
-        dup2(std_copy[1], STDOUT_FILENO);
-    close(std_copy[1]);
+	if (std_copy[0] != -1)
+		dup2(std_copy[0], STDIN_FILENO);
+	close(std_copy[0]);
+	if (std_copy[1] != -1)
+		dup2(std_copy[1], STDOUT_FILENO);
+	close(std_copy[1]);
 }
 
 int	is_builtin(char *cmd)

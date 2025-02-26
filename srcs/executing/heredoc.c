@@ -104,14 +104,14 @@ void	handle_heredoc(char *delim, t_shell *sh)
 	}
 	close(fd);
 	if (g_signal == 130)
-        return ;
+		return ;
 	fd = open(HEREDOC_FILE, O_RDONLY);
 	if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
-    {
-        if (fd >= 0)
-            close(fd);
-        return (perror("heredoc reopen"));
-    }
+	{
+		if (fd >= 0)
+			close(fd);
+		return (perror("heredoc reopen"));
+	}
 	unlink(HEREDOC_FILE);
 	close(fd);
 }

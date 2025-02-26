@@ -27,7 +27,7 @@ int	exec_builtin(t_cmd *cmd, t_shell *sh)
 	if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		return (builtin_env(sh->env));
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		return (builtin_exit(cmd->args, sh)); // close fd
+		return (builtin_exit(cmd->args, sh)); // close fd & free
 	return (0);
 }
 
@@ -50,7 +50,7 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 		printf("%s: command not found\n", cmd->args[0]);
 		free_array(env_arr);
 		exit(127);
-		return (free(path), free_array(all_path), free_array(env_arr), exit(127));
+		return (free_utils(path, all_path, env_arr), exit(127));
 	}
 	execve(path, cmd->args, env_arr);
 	perror("execve");
