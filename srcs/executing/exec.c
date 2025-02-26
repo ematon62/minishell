@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:27:10 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
+/*   Updated: 2025/02/26 01:04:26 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,36 @@ int	exec_builtin(t_cmd *cmd, t_shell *sh)
 	if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		return (builtin_env(sh->env));
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		builtin_exit(cmd->args, sh); // close fd
+		return (builtin_exit(cmd->args, sh)); // close fd
 	return (0);
 }
 
 void	exec_external(t_cmd *cmd, t_shell *sh)
 {
 	char	*path;
+	char	**all_path;
 	char	**env_arr;
 
-	path = find_executable(cmd->args[0], get_env_value(sh->env, "PATH"));
-	env_arr = env_to_array(sh->env); // a faire
+	path = get_env_value(sh->env, "PATH");
+	env_arr = env_to_array(sh->env);
+	if (!path ||!env_arr)
+		return (free(path), free_array(env_arr));
+	all_path = ft_split(path, ':');
+	if (!all_path)
+		return (free(path), free_array(all_path), free_array(env_arr));
+	path = find_executable(cmd->args[0], all_path);
 	if (!path)
 	{
 		printf("%s: command not found\n", cmd->args[0]);
-		free_array(env_arr); // a faire
+		free_array(env_arr);
 		exit(127);
+		return (free(path), free_array(all_path), free_array(env_arr), exit(127));
 	}
 	execve(path, cmd->args, env_arr);
 	perror("execve");
 	free(path);
-	free_array(env_arr); // a faire
+	free_array(all_path);
+	free_array(env_arr);
 	exit(126);
 }
 
@@ -62,7 +71,8 @@ static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 	if (cmds->next)
 		dup2(fd[1], STDOUT_FILENO);
 	close_pipes(fd_in, fd);
-	handle_redirections(cmd->redirs, sh);
+	if (handle_redirections(cmd->redirs, sh) != 0)
+		exit(1);
 	if (is_builtin(cmd->args[0]))
 		exit(exec_builtin(cmd, sh));
 	else
@@ -85,7 +95,10 @@ static int	exec_pipeline(t_cmds *cmds, t_shell *sh)
 		if (pid < 0)
 			return (perror("fork"), ERROR);
 		if (pid == 0)
+		{
 			exec_child(cmds, sh, fd_in, fd);
+			exit(EXIT_FAILURE);
+		}
 		close_and_swap(&fd_in, fd);
 		cmds = cmds->next;
 	}
@@ -101,7 +114,9 @@ void	execute(t_cmds *cmds, t_shell *sh)
 	if (!cmds)
 		return ;
 	save_stdio(std_copy);
-	if (!cmds->next && is_builtin(cmds->cmd->args[0]))
+	setup_signals();
+	g_signal = 1;
+	if (!cmds->next && !cmds->cmd->redirs && is_builtin(cmds->cmd->args[0]))
 		sh->exit_status = exec_builtin(cmds->cmd, sh);
 	else
 	{
@@ -110,5 +125,7 @@ void	execute(t_cmds *cmds, t_shell *sh)
 		status = exec_pipeline(cmds, sh);
 		sh->exit_status = WEXITSTATUS(status);
 	}
+	g_signal = 0;
 	restore_stdio(std_copy);
+	setup_signals();
 }

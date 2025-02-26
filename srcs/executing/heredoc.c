@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:26:31 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
+/*   Updated: 2025/02/24 22:33:37 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,58 @@ char	*find_executable(char *cmd, char **paths)
 	return (NULL);
 }
 
+static void	heredoc_sigint(int sig)
+{
+	(void)sig;
+	g_signal = 130;
+	close(STDIN_FILENO);
+}
+
+static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
+{
+	char	*line;
+	char	*tmp;
+
+	line = readline("> ");
+	if (!line || ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
+	{
+		if (!line)
+			write(2, "warning: here-doc delimited by end-of-file\n", 43);
+		free(line);
+		return (true);
+	}
+	tmp = expand_var(line, sh);
+	if (tmp)
+		ft_putendl_fd(tmp, fd);
+	free(line);
+	free(tmp);
+	return (false);
+}
+
 void	handle_heredoc(char *delim, t_shell *sh)
 {
 	int		fd;
-	char	*line;
-	char	*tmp;
 
 	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (perror("heredoc"));
-	while (1)
+	signal(SIGINT, heredoc_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	while (!g_signal)
 	{
-		line = readline("> ");
-		if (!line || ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
-		{
-			write(2, "warning: here-doc delimited by end-of-file\n", 43);
+		if (add_line_and_free(fd, sh, delim))
 			break ;
-		}
-		tmp = expand_var(line, sh->env);
-		ft_putendl_fd(tmp, fd);
-		free(line);
-		free(tmp);
 	}
 	close(fd);
+	if (g_signal == 130)
+        return ;
 	fd = open(HEREDOC_FILE, O_RDONLY);
+	if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
+    {
+        if (fd >= 0)
+            close(fd);
+        return (perror("heredoc reopen"));
+    }
 	unlink(HEREDOC_FILE);
-	dup2(fd, STDIN_FILENO);
 	close(fd);
 }

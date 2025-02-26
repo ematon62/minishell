@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:33:04 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:33:04 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:33:04 by adcisse           #+#    #+#             */
+/*   Updated: 2025/02/19 23:44:55 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,10 @@ int	is_valid_env_key(char *key)
 	return (1);
 }
 
-void	add_env_var_end(t_env_lst **env, char *key, char *value)
+void	append_env_var(t_env_lst **env, t_env_lst *new)
 {
 	t_env_lst	*current;
-	t_env_lst	*new;
 
-	new = malloc(sizeof(t_env_lst));
-	if (!new)
-		return ;
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	if (new->value[0])
-		new->is_env = true;
-	new->next = NULL;
 	if (!*env)
 	{
 		*env = new;
@@ -49,6 +40,30 @@ void	add_env_var_end(t_env_lst **env, char *key, char *value)
 	current->next = new;
 }
 
+
+void	add_env_var_end(t_env_lst **env, char *key, char *value)
+{
+	t_env_lst	*new;
+
+	new = malloc(sizeof(t_env_lst));
+	if (!new)
+		return ;
+	new->key = ft_strdup(key);
+	new->value = NULL;
+	new->is_env = false;
+	if (!new->key)
+		return (free(new->key), free(new));
+	if (value)
+	{
+		new->value = ft_strdup(value);
+		if (!new->value)
+			return (free(new->value), free(new->key), free(new));
+		new->is_env = true;
+	}
+	new->next = NULL;
+	append_env_var(env, new);
+}
+
 void	update_env_var(t_env_lst **env, char *key, char *value)
 {
 	t_env_lst	*current;
@@ -58,8 +73,11 @@ void	update_env_var(t_env_lst **env, char *key, char *value)
 	{
 		if (ft_strncmp(current->key, key, ft_strlen(key) + 1) == 0)
 		{
-			free(current->value);
-			current->value = ft_strdup(value);
+			if (value)
+			{
+				free(current->value);
+				current->value = ft_strdup(value);
+			}
 			return ;
 		}
 		current = current->next;

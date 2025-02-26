@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:32:25 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:32:25 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:32:25 by adcisse           #+#    #+#             */
+/*   Updated: 2025/02/24 00:49:27 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	builtin_exit(char **args, t_shell *sh)
 		else
 			exit_code = ft_atoi(args[1]);
 	}
-	free_shell(sh);
+	// free_shell(sh);
 	// close fd
 	exit(exit_code);
 }

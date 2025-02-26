@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 16:59:51 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/24 00:38:18 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "libft.h"
+#include "../libft/libft.h"
 # include "structs.h"
 
 //Gestion d'erreur

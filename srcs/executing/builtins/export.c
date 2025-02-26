@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:28:06 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:28:06 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:28:06 by adcisse           #+#    #+#             */
+/*   Updated: 2025/02/19 23:46:57 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static char	*get_key(char *arg, char *eq)
 static char	*get_value(char *eq)
 {
 	if (eq)
-		return (eq + 1);
+		return (ft_strdup(eq + 1));
 	else
-		return (ft_strdup(""));
+		return (NULL);
 }
 
 int	builtin_export(char **args, t_shell *sh)
@@ -70,39 +70,39 @@ int	builtin_export(char **args, t_shell *sh)
 }
 
 
-int	main(void)
-{
-	t_shell shell;
-	char *args1[] = {"export", "a=", "d1", "d2", "d3", NULL};
+// int	main(void)
+// {
+// 	t_shell shell;
+// 	char *args1[] = {"export", "a=", "d1", "d2", "d3", NULL};
 
-	// Initialisation de l'environnement
-	shell.env = NULL;
-	update_env_var(&shell.env, "VAR1", "hello");
+// 	// Initialisation de l'environnement
+// 	shell.env = NULL;
+// 	update_env_var(&shell.env, "VAR1", "hello");
 
-	// Affichage avant export
-	printf("🔹 ENV AVANT EXPORT:\n");
-	print_export(shell.env);
+// 	// Affichage avant export
+// 	printf("🔹 ENV AVANT EXPORT:\n");
+// 	print_export(shell.env);
 
-	// Test export a=1 2 3
-	printf("\n🚀 Test: export a=1 2 3\n");
-	builtin_export(args1, &shell);
+// 	// Test export a=1 2 3
+// 	printf("\n🚀 Test: export a=1 2 3\n");
+// 	builtin_export(args1, &shell);
 
-	// Affichage après export
-	printf("\n🔹 ENV APRÈS EXPORT:\n");
-	print_export(shell.env);
+// 	// Affichage après export
+// 	printf("\n🔹 ENV APRÈS EXPORT:\n");
+// 	print_export(shell.env);
 
-	// Libération de l'environnement
-	while (shell.env)
-	{
-		t_env_lst *tmp = shell.env;
-		shell.env = shell.env->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-	}
+// 	// Libération de l'environnement
+// 	while (shell.env)
+// 	{
+// 		t_env_lst *tmp = shell.env;
+// 		shell.env = shell.env->next;
+// 		free(tmp->key);
+// 		free(tmp->value);
+// 		free(tmp);
+// 	}
 
-	return (0);
-}
+// 	return (0);
+// }
 
 // int	main(void)
 // {

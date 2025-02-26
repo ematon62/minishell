@@ -1,0 +1,47 @@
+
+
+aaa
+aaa
+zed
+zed
+
+
+
+
+
+sadd
+d
+
+ze
+ae
+&
+a&
+
+&
+a   
+
+aa
+aa
+
+aa
+
+aa
+a
+total 92
+-rwxrwxr-x 1 cisse cisse 69136 févr. 26 01:22 a.out
+drwxr-xr-x 2 cisse cisse  4096 févr. 18 01:05 includes
+-rw-rw-r-- 1 cisse cisse     0 févr. 26 01:22 input.txt
+drwxr-xr-x 5 cisse cisse  4096 févr. 18 19:30 libft
+-rw-r--r-- 1 cisse cisse   897 févr. 18 01:05 Makefile
+-rw-rw-r-- 1 cisse cisse   455 févr. 26 01:16 output.txt
+-rw-r--r-- 1 cisse cisse    82 févr. 18 01:05 readline.supp
+drwxr-xr-x 4 cisse cisse  4096 févr. 23 17:36 srcs
+total 92
+-rwxrwxr-x 1 cisse cisse 69160 févr. 26 01:26 a.out
+drwxr-xr-x 2 cisse cisse  4096 févr. 18 01:05 includes
+-rw-rw-r-- 1 cisse cisse   522 févr. 26 01:25 input.txt
+drwxr-xr-x 5 cisse cisse  4096 févr. 18 19:30 libft
+-rw-r--r-- 1 cisse cisse   897 févr. 18 01:05 Makefile
+-rw-rw-r-- 1 cisse cisse     0 févr. 26 01:26 output.txt
+-rw-r--r-- 1 cisse cisse    82 févr. 18 01:05 readline.supp
+drwxr-xr-x 4 cisse cisse  4096 févr. 23 17:36 srcs

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_read.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:25:00 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:25:00 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:25:00 by adcisse           #+#    #+#             */
+/*   Updated: 2025/02/19 23:23:35 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ static char	*handle_dollar(char *input, size_t *i, t_shell *shell)
 	while (ft_isalnum(input[*i]) || input[*i] == '_')
 		(*i)++;
 	key = ft_substr(input, start, *i - start);
+	if (!key)
+		return (free(key), NULL);
 	value = get_env_value(shell->env, key);
+	if (!value)
+		return (free(value), free(key), NULL);
 	free(key);
 	return (value);
 }
@@ -61,6 +65,8 @@ static void	process_char(char **result, char c)
 	ch[1] = '\0';
 	tmp = *result;
 	*result = ft_strjoin(*result, ch);
+	if (!*result)
+		return (free(*result), free(tmp));
 	free(tmp);
 }
 
@@ -70,8 +76,12 @@ void	process_expansion(char **result, char *token, size_t *i, t_shell *shell)
 	char	*tmp;
 
 	value = handle_dollar(token, i, shell);
+	if (!value)
+		return (free(value));
 	tmp = *result;
 	*result = ft_strjoin(*result, value);
+	if (!*result)
+		return (free(*result), free(tmp), free(value));
 	free(tmp);
 	free(value);
 }

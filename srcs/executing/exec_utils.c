@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:27:22 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:27:22 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:27:22 by adcisse           #+#    #+#             */
+/*   Updated: 2025/02/24 22:11:01 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	close_pipes(int fd_in, int fd[2])
 
 void	close_and_swap(int *fd_in, int fd[2])
 {
-	close(fd[1]);
+	if (fd[1] != -1)
+		close(fd[1]);
+	if (*fd_in != STDIN_FILENO && *fd_in != -1)
+		close(*fd_in);
 	*fd_in = fd[0];
 }
 
@@ -36,10 +39,12 @@ void	save_stdio(int std_copy[2])
 
 void	restore_stdio(int std_copy[2])
 {
-	dup2(std_copy[0], STDIN_FILENO);
-	dup2(std_copy[1], STDOUT_FILENO);
-	close(std_copy[0]);
-	close(std_copy[1]);
+    if (std_copy[0] != -1)
+        dup2(std_copy[0], STDIN_FILENO);
+    close(std_copy[0]);
+    if (std_copy[1] != -1)
+        dup2(std_copy[1], STDOUT_FILENO);
+    close(std_copy[1]);
 }
 
 int	is_builtin(char *cmd)
