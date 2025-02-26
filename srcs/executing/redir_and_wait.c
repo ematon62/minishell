@@ -21,12 +21,14 @@ void	print_redir_error(char *file)
 
 void	process_heredocs(t_redirections *r, t_shell *sh)
 {
+	g_signal = 0;
 	while (r)
 	{
 		if (r->type == IS_HEREDOC)
 			handle_heredoc(r->target, sh);
 		r = r->next;
 	}
+	g_signal = 1;
 }
 
 void	create_output_files(t_redirections *r, t_redirections **last_output)

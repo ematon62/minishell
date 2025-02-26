@@ -72,10 +72,12 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	char	*line;
 	char	*tmp;
 
+	signal(SIGINT, heredoc_sigint);
+	signal(SIGQUIT, SIG_IGN);
 	line = readline("> ");
-	if (!line || ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
+	if ((!line || ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0))
 	{
-		if (!line)
+		if (!line && !((g_signal == 130) || (g_signal == 131)))
 			write(2, "warning: here-doc delimited by end-of-file\n", 43);
 		free(line);
 		return (true);
@@ -88,13 +90,13 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	return (false);
 }
 
-void	handle_heredoc(char *delim, t_shell *sh)
+int	handle_heredoc(char *delim, t_shell *sh)
 {
 	int		fd;
 
 	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		return (perror("heredoc"));
+		return (perror("heredoc"), 1);
 	signal(SIGINT, heredoc_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	while (!g_signal)
@@ -104,14 +106,14 @@ void	handle_heredoc(char *delim, t_shell *sh)
 	}
 	close(fd);
 	if (g_signal == 130)
-		return ;
+		return (unlink(HEREDOC_FILE));
 	fd = open(HEREDOC_FILE, O_RDONLY);
 	if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
 	{
 		if (fd >= 0)
 			close(fd);
-		return (perror("heredoc reopen"));
+		return (perror("heredoc reopen"), unlink(HEREDOC_FILE));
 	}
 	unlink(HEREDOC_FILE);
-	close(fd);
+	return (close(fd));
 }

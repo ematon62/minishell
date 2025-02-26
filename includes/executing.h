@@ -54,7 +54,7 @@ int				exec_builtin(t_cmd *cmd, t_shell *shell);
 int				is_builtin(char *cmd);
 char			*build_path(char *old_path, char *cmd);
 char			*find_executable(char *cmd, char **paths);
-void			handle_heredoc(char *delim, t_shell *sh);
+int				handle_heredoc(char *delim, t_shell *sh);
 int				wait_children(pid_t last_pid, int *status);
 
 /* Execution utils*/
