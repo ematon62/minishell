@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 20:21:27 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/26 14:35:35 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ typedef struct s_cmd
 {
 	char			**args;
 	t_redirections	*redirs;
-	char			*in;
-	char			*out;
 }	t_cmd;
 
 typedef struct s_cmds

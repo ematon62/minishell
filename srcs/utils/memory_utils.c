@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 10:39:37 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 10:52:55 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/26 14:35:47 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,6 @@ void	free_cmds(t_cmds *cmds)
 		if (cmds->cmd)
 		{
 			ft_free_toodee((void **)cmds->cmd->args);
-			if (cmds->cmd->in)
-				free(cmds->cmd->in);
-			if (cmds->cmd->out)
-				free(cmds->cmd->out);
 			free_redirs(cmds->cmd->redirs);
 			free(cmds->cmd);
 		}

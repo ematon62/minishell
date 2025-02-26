@@ -6,12 +6,17 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:21:21 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 18:30:27 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/26 13:33:08 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+/*
+- tokens: liste de tokens après 1er appel du lexer
+- Si dernier token est une pipe, fonction est appelée
+pour complèter cette pipe (en vérifiant tokens au passage)
+*/
 bool	complete_pipe(t_token_lst *tokens, t_shell *shell)
 {
 	char		*read_line;

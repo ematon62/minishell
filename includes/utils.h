@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 16:59:51 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/26 13:42:03 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 void		exit_error(char *s);
 
 //Listes chainees
-t_env_lst	*lst_env_new(char *key, char *value);
-t_token_lst	*token_lst_new(t_token type, char *token);
-t_token_lst	*token_lst_last(t_token_lst *tokens);
+t_env_lst		*lst_env_new(char *key, char *value);
+t_token_lst		*token_lst_new(t_token type, char *token);
+t_token_lst		*token_lst_last(t_token_lst *tokens);
+t_redirections	*lst_redir_new(t_type type, char *target);
 
 //Gestion de mémoire
 void		free_cmds(t_cmds *cmds);

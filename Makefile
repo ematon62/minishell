@@ -18,6 +18,7 @@ SRCS := $(SRCS_PATH)/main.c\
 		$(SRCS_PATH)/parsing/check_tokens.c\
 		$(SRCS_PATH)/parsing/complete_pipe.c\
 		$(SRCS_PATH)/parsing/parse_read.c\
+		$(SRCS_PATH)/parsing/tokens_to_cmds.c\
 		$(SRCS_PATH)/utils/exit_error.c\
 		$(SRCS_PATH)/utils/lst_utils.c\
 		$(SRCS_PATH)/utils/memory_utils.c
