@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 11:29:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 18:19:57 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/27 18:24:26 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	check_tokens(t_token_lst *tokens)
 		if ((tokens->type >= 1 && tokens->type <= 4)
 			&& !tokens->next)
 			return (ft_putstr_fd(SYNTAX, STDERR_FILENO), false);
-		if (tokens->type != WORD && tokens->next
+		if ((tokens->type >= 1 && tokens->type <= 4) && tokens->next
 			&& tokens->next->type != WORD)
 			return (ft_putstr_fd(SYNTAX, STDERR_FILENO), false);
 		tokens = tokens->next;

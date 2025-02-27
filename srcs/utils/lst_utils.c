@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:54:48 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/26 14:37:46 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/27 17:14:04 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,36 @@ t_token_lst	*token_lst_last(t_token_lst *tokens)
 	return (last);
 }
 
-t_redirections	*lst_redir_new(t_type type, char *target)
+t_redirections	*lst_redir_new(t_token token_type, char *target)
 {
 	t_redirections	*redir;
 
 	redir = malloc(sizeof(t_redirections));
 	if (!redir)
 		return (NULL);
-	redir->type = type;
+	if (token_type == IO_IN)
+		redir->type = IS_INREDIR;
+	if (token_type == IO_OUT)
+		redir->type = IS_TRUNCAT;
+	if (token_type == IO_HEREDOC)
+		redir->type = IS_HEREDOC;
+	if (token_type == IO_APPEND)
+		redir->type = IS_APPEND;
 	redir->target = ft_strdup(target);
 	if (!redir->target)
 		return (free(redir), NULL);
+	redir->next = NULL;
 	return (redir);
+}
+
+t_cmds	*lst_new_cmds(t_cmd *cmd)
+{
+	t_cmds	*cmds;
+
+	cmds = malloc(sizeof(t_cmds));
+	if (!cmds)
+		return (NULL);
+	cmds->next = NULL;
+	cmds->cmd = cmd;
+	return (cmds);
 }

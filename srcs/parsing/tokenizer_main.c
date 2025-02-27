@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 19:03:25 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 14:11:33 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/27 13:54:46 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static t_token_lst	*get_word(char *word, int *i, bool s, bool d)
 		if (ft_strchr("|<>", word[len]) && !s && !d)
 			break ;
 		if (!s && word[*i] == '\"')
-			change_quote_status(&d);
+			d = !d;
 		if (!d && word[*i] == '\'')
-			change_quote_status(&s);
+			s = !s;
 		len++;
 	}
 	substr = ft_substr(word, *i, len - *i);
@@ -45,9 +45,9 @@ static t_token_lst	*get_next_token(char *word, int *i)
 	in_single = false;
 	in_double = false;
 	if (!in_single && word[*i] == '\"')
-		change_quote_status(&in_double);
+		in_double = !in_double;
 	if (!in_double && word[*i] == '\'')
-		change_quote_status(&in_single);
+		in_single = !in_single;
 	if (!in_single && !in_double && word[*i] == '|')
 		return (*i += 1, token_lst_new(IO_PIPE, NULL));
 	else if (!in_single && !in_double && word[*i] == '<')
@@ -66,7 +66,7 @@ static t_token_lst	*get_next_token(char *word, int *i)
 		return (get_word(word, i, in_single, in_double));
 }
 
-static t_token_lst	*tokenize_node(t_token_lst *current, t_shell *shell)
+static t_token_lst	*tokenize_node(t_token_lst *current)
 {
 	int			i;
 	t_token_lst	*new_lst;
@@ -79,27 +79,25 @@ static t_token_lst	*tokenize_node(t_token_lst *current, t_shell *shell)
 		new_node = get_next_token(current->token, &i);
 		if (!new_node || (new_node->type == WORD && !new_node->token))
 			return (free_tokens_lst(new_node),
-				free_tokens_lst(new_lst),
-				free_shell(shell),
-				exit_error("malloc"), NULL);
+				free_tokens_lst(new_lst), NULL);
 		ft_lstadd_back((t_list **)&new_lst, (t_list *)new_node);
 	}
 	return (new_lst);
 }
 
-static t_token_lst	*words_to_tokens(t_token_lst *first, t_shell *shell)
+static t_token_lst	*words_to_tokens(t_token_lst *first)
 {
-	t_token_lst	*current;
 	t_token_lst	*tokens;
 	t_token_lst	*new;
 
 	tokens = NULL;
-	current = first;
-	while (current)
+	while (first)
 	{
-		new = tokenize_node(current, shell);
+		new = tokenize_node(first);
+		if (!new)
+			return (free_tokens_lst(tokens), NULL);
 		ft_lstadd_back((t_list **)&tokens, (t_list *)new);
-		current = current->next;
+		first = first->next;
 	}
 	return (tokens);
 }
@@ -107,23 +105,18 @@ static t_token_lst	*words_to_tokens(t_token_lst *first, t_shell *shell)
 /*
 - input: sortie de readline()
 - Tokenize la chaine (->liste chainee)
-Ex: cat > outfile | echo << EOF
-->1ere node: cat WORD
-->2e: > OUT_REDIRECTION
-->3e: outfile WORD
-->4e: | PIPE
-->5e: echo WORD
-->6e: << HERE_DOC
-->7e: EOF WORD
+!!!!Au passage, free la chaine d'entree input
 */
-t_token_lst	*lexer(char *input, t_shell *shell)
+t_token_lst	*lexer(char *input)
 {
 	t_token_lst	*new;
 	t_token_lst	*first;
 
-	first = remove_spaces(input, shell);
+	first = remove_spaces(input);
+	if (!first)
+		return (free(input), NULL);
 	free(input);
-	new = words_to_tokens(first, shell);
+	new = words_to_tokens(first);
 	free_tokens_lst(first);
 	return (new);
 }

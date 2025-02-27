@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:41:58 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 18:29:43 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/27 18:29:36 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	shell = init_shell(envp);
+	shell = init_shell(envp); 
+	if (!shell)
+		exit_error("malloc");
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) && isatty(STDERR_FILENO))
@@ -29,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 			input = readline("$");
 			if (!input)
 				break ;
-			if (input[0] == '\n')
+			if (!input[0])
 				continue ;
 			shell->cmds = parse(input, shell);
 			if (!shell->cmds)

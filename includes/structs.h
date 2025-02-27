@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/26 14:35:35 by ematon           ###   ########.fr       */
+/*   Updated: 2025/02/27 18:31:14 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ typedef enum e_token
 	UNDEFINED
 }	t_token;
 
+typedef enum e_type
+{
+	IS_INREDIR,
+	IS_HEREDOC,
+	IS_TRUNCAT,
+	IS_APPEND
+}	t_type;
+
 //NULL si type = PIPE, IO_IN, IO_OUT, IO_APPEND, IO_HEREDOC
 typedef struct s_token_lst
 {
@@ -42,19 +50,11 @@ typedef struct s_env_lst
 	bool				is_env;
 }	t_env_lst;
 
-typedef enum e_type
-{
-	IS_INREDIR,
-	IS_HEREDOC,
-	IS_TRUNCAT,
-	IS_APPEND
-}	t_type;
-
 typedef struct s_redirection
 {
 	struct s_redirection	*next;
-	t_type					type;
 	char					*target;
+	t_type					type;
 }	t_redirections;
 
 typedef struct s_cmd
