@@ -6,23 +6,32 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/04 15:14:32 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/04 18:54:06 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	expand_dollars(t_token_lst *tokens, t_shell *shell)
+void	*expand_dollars(t_token_lst *tokens, t_shell *shell)
 {
 	if (tokens && tokens->type == WORD)
+	{
 		tokens->token = expand_var(tokens->token, shell);
+		if (!tokens->token)
+			return (NULL);
+	}
 	while (tokens)
 	{
 		if (tokens->type != IO_HEREDOC && tokens->next
 			&& tokens->next->type == WORD)
+		{
 			tokens->next->token = expand_var(tokens->next->token, shell);
+			if (!tokens->next->token)
+				return (NULL);
+		}
 		tokens = tokens->next;
 	}
+	return ((void *)1);
 }
 
 void	quoteless(char *token)
@@ -94,8 +103,10 @@ t_cmds	*parse(char *input, t_shell *shell)
 	if (!tokens)
 		return (free_shell(shell), exit_error("malloc"), NULL);
 	if (!complete_pipe(tokens, shell))
-		return (free_tokens_lst(tokens), NULL);
-	expand_dollars(tokens, shell);
+		return (NULL);
+	if (!expand_dollars(tokens, shell))
+		return (free_tokens_lst(tokens), free_shell(shell),
+			exit_error("malloc"), NULL);
 	remove_quotes(tokens);
 	cmds = tokens_to_cmds(tokens);
 	free_tokens_lst(tokens);

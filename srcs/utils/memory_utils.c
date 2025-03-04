@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 10:39:37 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/26 14:35:47 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/04 16:44:15 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	free_shell(t_shell *shell)
 	if (shell)
 	{
 		free_env_vars(shell->env);
-		free_cmds(shell->cmds);
 		free(shell);
 	}
 }
