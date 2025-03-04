@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 18:28:27 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 18:32:25 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/04 15:11:33 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_token_lst	*cycle_until_pipe(t_token_lst *tokens, t_cmd *cmd)
 			tokens = tokens->next;
 	}
 	cmd->args = args_lst_to_array(arg_lst);
+	free_tokens_lst(arg_lst);
 	if (!cmd->args)
 		return (free(cmd), free_tokens_lst(arg_lst),
 			free_redirs(redirs), NULL);

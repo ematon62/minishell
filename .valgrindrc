@@ -1,1 +1,1 @@
---track-fds=yes --trace-children=yes --suppressions=readline.supp
+--track-fds=yes --trace-children=yes --leak-check=full --suppressions=readline.supp

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:41:58 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 18:29:36 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/04 14:25:39 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	main(int argc, char **argv, char **envp)
 			input = readline("$");
 			if (!input)
 				break ;
-			if (!input[0])
-				continue ;
 			shell->cmds = parse(input, shell);
 			if (!shell->cmds)
 				continue ;

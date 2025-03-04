@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:49:22 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 20:42:07 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/04 15:25:33 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ char	*expand_var(char *token, t_shell *shell)
 		process_char(&result, token[i]);
 		i++;
 	}
-	return (result);
+	return (free(token), result);
 }
 

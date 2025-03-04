@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 18:36:57 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/04 15:14:32 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,30 @@ void	remove_quotes(t_token_lst *tokens)
 	}
 }
 
+bool	is_whitespace(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] != ' ' && input[i] != '\t' && input[i] != '\n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+/*
+input est free au passage
+*/
 t_cmds	*parse(char *input, t_shell *shell)
 {
 	t_token_lst	*tokens;
 	t_cmds		*cmds;
-	int			i;
 
+	if (is_whitespace(input))
+		return (free(input), NULL);
 	if (is_unclosed_quote(input))
 		return (ft_putstr_fd(MATCHING, STDERR_FILENO), NULL);
 	tokens = lexer(input);
