@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:54:48 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 17:14:04 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 15:14:26 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,19 @@
 
 //Polymorphismes de la fonction de la libft ft_lst_new
 
+/*
+key et value sont déja allouées dynamiquement
+*/
 t_env_lst	*lst_env_new(char *key, char *value)
 {
 	t_env_lst	*elem;
 
 	elem = malloc(sizeof(t_env_lst));
 	if (!elem)
-		return (NULL);
+		return (free(key), free(value), NULL);
 	elem->next = NULL;
-	elem->key = NULL;
-	elem->value = NULL;
-	elem->key = ft_strdup(key);
-	if (!elem->key)
-		return (free(elem), NULL);
-	elem->value = ft_strdup(value);
-	if (!elem->value)
-		return (free(elem->key), free(elem), NULL);
+	elem->key = key;
+	elem->value = value;
 	elem->is_env = true;
 	return (elem);
 }
