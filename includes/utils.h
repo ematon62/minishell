@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 15:25:44 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 14:36:04 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ void			free_shell(t_shell *shell);
 void			free_redirs(t_redirections *redirs);
 void			free_tokens_lst(t_token_lst *tokens);
 void			free_env_vars(t_env_lst	*env_vars);
+
+//Expansion de variables
+char			*expand_var(char *token, t_shell *shell);
 
 #endif

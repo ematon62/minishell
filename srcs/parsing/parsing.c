@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/04 18:54:06 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 14:32:48 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,21 @@ t_cmds	*parse(char *input, t_shell *shell)
 {
 	t_token_lst	*tokens;
 	t_cmds		*cmds;
+	char		*vars;
 
-	if (is_whitespace(input))
-		return (free(input), NULL);
 	if (is_unclosed_quote(input))
-		return (ft_putstr_fd(MATCHING, STDERR_FILENO), NULL);
-	tokens = lexer(input);
+		return (free(input), ft_putstr_fd(MATCHING, STDERR_FILENO), NULL);
+	vars = expand_var(input, shell);
+	if (!vars)
+		return (free_shell(shell),
+			exit_error("malloc"), NULL);
+	if (is_whitespace(vars))
+		return (free(vars), NULL);
+	tokens = lexer(vars);
 	if (!tokens)
 		return (free_shell(shell), exit_error("malloc"), NULL);
 	if (!complete_pipe(tokens, shell))
-		return (NULL);
-	if (!expand_dollars(tokens, shell))
-		return (free_tokens_lst(tokens), free_shell(shell),
-			exit_error("malloc"), NULL);
+		return (free_tokens_lst(tokens), NULL);
 	remove_quotes(tokens);
 	cmds = tokens_to_cmds(tokens);
 	free_tokens_lst(tokens);

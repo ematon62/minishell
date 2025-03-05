@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_read.c                                       :+:      :+:    :+:   */
+/*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:49:22 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/04 19:16:11 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 14:23:42 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_env_value(t_env_lst *env, const char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
+		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key) + 1) == 0)
 		{
 			if (tmp->value)
 				return (ft_strdup(tmp->value));

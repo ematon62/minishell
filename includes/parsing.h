@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 18:30:59 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 14:35:44 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_cmds		*parse(char *input, t_shell *shell);
 bool		is_unclosed_quote(char *input);
 bool		complete_pipe(t_token_lst *tokens, t_shell *shell);
 bool		check_tokens(t_token_lst *tokens);
-
-char		*expand_var(char *token, t_shell *shell);
 
 void		*complete_cmd(t_token_lst *tokens, t_redirections **redirs,
 				t_token_lst **args);

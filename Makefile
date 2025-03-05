@@ -17,11 +17,11 @@ SRCS := $(SRCS_PATH)/main.c\
 		$(SRCS_PATH)/parsing/check_quote.c\
 		$(SRCS_PATH)/parsing/check_tokens.c\
 		$(SRCS_PATH)/parsing/complete_pipe.c\
-		$(SRCS_PATH)/parsing/expand_vars.c\
 		$(SRCS_PATH)/parsing/args_lst_to_array.c\
 		$(SRCS_PATH)/parsing/tokens_to_cmds.c\
 		$(SRCS_PATH)/utils/exit_error.c\
 		$(SRCS_PATH)/utils/lst_utils.c\
+		$(SRCS_PATH)/utils/expand_vars.c\
 		$(SRCS_PATH)/utils/memory_utils.c
 
 OBJS := $(SRCS:.c=.o)

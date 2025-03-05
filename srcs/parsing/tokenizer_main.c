@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 19:03:25 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/04 18:27:03 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 14:05:55 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_token_lst	*get_word(char *word, int *i, bool *s, bool *d)
 	int			len;
 	t_token_lst	*new;
 
-	len = *i;
+	len = *i + 1;
 	while (word[len])
 	{
 		if (ft_strchr("|<>", word[len]) && !*s && !*d)
@@ -41,24 +41,18 @@ static t_token_lst	*get_next_token(char *word, int *i, bool *in_single,
 	bool *in_double)
 {
 	if (!*in_single && word[*i] == '\"')
-	{
 		*in_double = !*in_double;
-		*i += 1;
-	}
 	if (!*in_double && word[*i] == '\'')
-	{
 		*in_single = !*in_single;
-		*i += 1;
-	}
 	if (!*in_single && !*in_double && word[*i] == '|')
 		return (*i += 1, token_lst_new(IO_PIPE, NULL));
-	else if (!*in_single && !*in_double && word[*i] == '<')
+	if (!*in_single && !*in_double && word[*i] == '<')
 	{
 		if (word[*i + 1] == '<')
 			return (*i += 2, token_lst_new(IO_HEREDOC, NULL));
 		return (*i += 1, token_lst_new(IO_IN, NULL));
 	}
-	else if (!*in_single && !*in_double && word[*i] == '>')
+	if (!*in_single && !*in_double && word[*i] == '>')
 	{
 		if (word[*i + 1] == '>')
 			return (*i += 2, token_lst_new(IO_APPEND, NULL));
