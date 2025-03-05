@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 18:31:14 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 17:04:24 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define STRUCTS_H
 
 # include <stdbool.h>
+
+typedef struct s_redir_state
+{
+	int	input_done;
+	int	output_done;
+}	t_redir_state;
 
 typedef enum e_token
 {

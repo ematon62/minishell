@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:33:04 by adcisse           #+#    #+#             */
-/*   Updated: 2025/02/19 23:44:55 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/05 17:20:40 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/executing.h"
+#include "executing.h"
 
 int	is_valid_env_key(char *key)
 {

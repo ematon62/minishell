@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:28:06 by adcisse           #+#    #+#             */
-/*   Updated: 2025/02/19 23:46:57 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/05 18:01:00 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/executing.h"
+#include "executing.h"
 
 static void	print_export(t_env_lst *env)
 {
@@ -68,7 +68,6 @@ int	builtin_export(char **args, t_shell *sh)
 	}
 	return (ret);
 }
-
 
 // int	main(void)
 // {

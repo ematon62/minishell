@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:32:35 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:32:35 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:32:35 by adcisse           #+#    #+#             */
+/*   Updated: 2025/03/05 17:20:11 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/executing.h"
+#include "executing.h"
 
 int	builtin_env(t_env_lst *env)
 {

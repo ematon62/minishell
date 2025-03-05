@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:39:38 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/05 15:17:06 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 17:06:40 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_env_lst	*get_env_vars(char **envp)
 	current = NULL;
 	while (envp && envp[i])
 	{
-		
 		new = new_var(envp[i]);
 		if (!new)
 			return (free_env_vars(current), NULL);

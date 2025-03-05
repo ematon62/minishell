@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:32:25 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/02 20:41:33 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/05 17:20:57 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/executing.h"
+#include "executing.h"
 
 int	is_numeric(char *str)
 {

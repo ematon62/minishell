@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/05 15:50:10 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/05 17:58:46 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
 #define READ_END 0
 #define ERROR 1
 #define SUCCESS 0
-
-typedef struct s_redir_state
-{
-	int	input_done;
-	int	output_done;
-}	t_redir_state;
 
 /* Signals */
 extern volatile sig_atomic_t	g_signal;

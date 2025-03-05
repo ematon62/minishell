@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/02 22:35:28 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/05 18:04:25 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/executing.h"
+#include "executing.h"
 
 int	exec_builtin(t_cmd *cmd, t_shell *sh)
 {
@@ -113,16 +113,16 @@ void	execute(t_cmds *cmds, t_shell *sh)
 	int		status;
 	int		std_copy[2];
 
-	if (!cmds)
-		return ;
 	save_stdio(std_copy);
 	setup_signals();
 	g_signal = 1;
-	if(pre_process_heredocs(cmds, sh) == 10)
-		return (restore_stdio(std_copy), setup_signals(), restore_stdio(std_copy));
+	if (pre_process_heredocs(cmds, sh) == 10)
+		return (restore_stdio(std_copy), setup_signals(),
+			restore_stdio(std_copy));
 	if (!cmds->next && !cmds->cmd->redirs && is_builtin(cmds->cmd->args[0]))
 		sh->exit_status = exec_builtin(cmds->cmd, sh);
-	else if (!cmds->next && cmds->cmd->redirs && is_builtin(cmds->cmd->args[0]))
+	else if (!cmds->next && cmds->cmd->redirs
+		&& is_builtin(cmds->cmd->args[0]))
 		sh->exit_status = exec_redir_builtin(cmds->cmd, sh);
 	else if (cmds->cmd->args[0])
 	{

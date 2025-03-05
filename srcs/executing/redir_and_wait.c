@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir_and_wait.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/01 14:21:57 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/05 18:05:14 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/executing.h"
+#include "executing.h"
 
 void	print_redir_error(char *file)
 {
@@ -26,7 +26,7 @@ int	process_heredocs(t_redirections *r, t_shell *sh)
 	{
 		if (r->type == IS_HEREDOC)
 		{
-			if(handle_heredoc(r->target, sh) == 10)
+			if (handle_heredoc(r->target, sh) == 10)
 				return (10);
 			r->type = IS_INREDIR;
 			r->target = HEREDOC_FILE;

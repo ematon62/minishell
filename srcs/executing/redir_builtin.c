@@ -1,10 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir_builtin.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 17:21:55 by ematon            #+#    #+#             */
+/*   Updated: 2025/03/05 18:08:45 by ematon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
-
-
-
-
-#include "../../includes/executing.h"
+#include "executing.h"
 
 int	exec_redir_builtin(t_cmd *cmd, t_shell *sh)
 {
@@ -24,11 +30,13 @@ int	exec_redir_builtin(t_cmd *cmd, t_shell *sh)
 
 int	pre_process_heredocs(t_cmds *cmds, t_shell *sh)
 {
-	t_cmds *current = cmds;
+	t_cmds	*current;
+
+	current = cmds;
 	while (current)
 	{
-		if(process_heredocs(current->cmd->redirs, sh) == 10)
-				return (10);
+		if (process_heredocs(current->cmd->redirs, sh) == 10)
+			return (10);
 		current = current->next;
 	}
 	return (0);

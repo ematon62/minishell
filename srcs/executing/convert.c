@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-26 11:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-26 11:27:10 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/26 11:27:10 by adcisse           #+#    #+#             */
+/*   Updated: 2025/03/05 17:21:17 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/executing.h"
+#include "executing.h"
 
 int	count_env_vars(t_env_lst *env)
 {

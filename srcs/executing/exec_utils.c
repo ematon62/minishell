@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:22 by adcisse           #+#    #+#             */
-/*   Updated: 2025/02/24 22:11:01 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/05 17:21:23 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/executing.h"
+#include "executing.h"
 
 void	close_pipes(int fd_in, int fd[2])
 {

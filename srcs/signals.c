@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-26 11:33:22 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-26 11:33:22 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/26 11:33:22 by adcisse           #+#    #+#             */
+/*   Updated: 2025/03/05 17:58:58 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-volatile	sig_atomic_t	g_signal = 0;
+volatile sig_atomic_t	g_signal = 0;
 
 static void	sigint_handler(int sig)
 {

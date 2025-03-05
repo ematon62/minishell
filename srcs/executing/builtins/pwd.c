@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-18 15:33:32 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-18 15:33:32 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/18 15:33:32 by adcisse           #+#    #+#             */
+/*   Updated: 2025/03/05 17:21:05 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/executing.h"
+#include "executing.h"
 
 int	builtin_pwd(void)
 {
