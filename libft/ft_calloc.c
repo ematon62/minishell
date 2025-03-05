@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 21:08:52 by ematon            #+#    #+#             */
-/*   Updated: 2024/12/02 13:09:16 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/01 15:58:52 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void		*ptr;
-	size_t		i;
 
-	i = 0;
 	if (!nmemb && !size && ((nmemb * size) / size != nmemb))
 		return (NULL);
 	ptr = malloc(nmemb * size);

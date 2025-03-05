@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:33:23 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/14 16:03:43 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/05 15:50:53 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <signal.h>
+#include <linux/limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 

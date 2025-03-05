@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_and_wait.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adcisse <adcisse@student.42.fr>            #+#  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025-02-26 11:13:34 by adcisse          ###   ########.fr       */
+/*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
+/*   Updated: 2025/03/01 14:21:57 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,22 @@ void	print_redir_error(char *file)
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 }
 
-void	process_heredocs(t_redirections *r, t_shell *sh)
+int	process_heredocs(t_redirections *r, t_shell *sh)
 {
 	g_signal = 0;
 	while (r)
 	{
 		if (r->type == IS_HEREDOC)
-			handle_heredoc(r->target, sh);
+		{
+			if(handle_heredoc(r->target, sh) == 10)
+				return (10);
+			r->type = IS_INREDIR;
+			r->target = HEREDOC_FILE;
+		}
 		r = r->next;
 	}
 	g_signal = 1;
+	return (0);
 }
 
 void	create_output_files(t_redirections *r, t_redirections **last_output)

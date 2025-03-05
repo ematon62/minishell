@@ -6,7 +6,7 @@
 /*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:20:55 by adcisse           #+#    #+#             */
-/*   Updated: 2025/02/26 01:15:15 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/01 13:04:06 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	apply_redirections(t_redirections *r, t_redirections *last_input,
 	}
 }
 
-int	handle_redirections(t_redirections *r, t_shell *sh)
+int	handle_redirections(t_redirections *r)
 {
 	t_redir_state	state;
 	t_redirections	*last_output;
@@ -91,7 +91,6 @@ int	handle_redirections(t_redirections *r, t_shell *sh)
 	last_output = NULL;
 	error = 0;
 	err_file = NULL;
-	process_heredocs(r, sh);
 	last_input = find_last_input_file(r, &error, &err_file);
 	create_output_files(r, &last_output);
 	if (error)

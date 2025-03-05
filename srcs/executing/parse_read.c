@@ -93,7 +93,7 @@ char	*expand_var(char *token, t_shell *shell)
 	bool	in_single;
 	bool	in_double;
 
-	result = ft_strdup("");
+	result = "";
 	in_single = false;
 	in_double = false;
 	i = 0;

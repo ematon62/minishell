@@ -6,7 +6,7 @@
 /*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025/02/24 22:33:37 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/01 14:29:53 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,14 @@ int	handle_heredoc(char *delim, t_shell *sh)
 	}
 	close(fd);
 	if (g_signal == 130)
-		return (unlink(HEREDOC_FILE));
-	fd = open(HEREDOC_FILE, O_RDONLY);
-	if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
-	{
-		if (fd >= 0)
-			close(fd);
-		return (perror("heredoc reopen"), unlink(HEREDOC_FILE));
-	}
-	unlink(HEREDOC_FILE);
+		return (unlink(HEREDOC_FILE), 10);
+	// fd = open(HEREDOC_FILE, O_RDONLY);
+	// if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
+	// {
+	// 	if (fd >= 0)
+	// 		close(fd);
+	// 	return (perror("heredoc reopen"), unlink(HEREDOC_FILE));
+	// }
+	// unlink(HEREDOC_FILE);
 	return (close(fd));
 }

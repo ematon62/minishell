@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_conv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 10:43:32 by ematon            #+#    #+#             */
-/*   Updated: 2025/01/08 14:51:39 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/01 16:00:38 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ void	ft_handle_char(va_list arg, int *nb)
 void	ft_handle_str(va_list arg, int *nb)
 {
 	const char	*s;
-	int			i;
-	int			n;
 
-	i = 0;
-	n = 0;
 	s = (const char *)va_arg(arg, const char *);
 	if (!s)
 	{
@@ -40,9 +36,7 @@ void	ft_handle_str(va_list arg, int *nb)
 void	ft_handle_int(va_list arg, int *nb)
 {
 	int		printed;
-	int		n;
 
-	n = 0;
 	printed = (int)va_arg(arg, int);
 	ft_putnbr_ptr(printed, nb);
 }
