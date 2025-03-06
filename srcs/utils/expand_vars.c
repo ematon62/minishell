@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:49:22 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/05 14:23:42 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 13:52:20 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ void	*process_expansion(char **result, char *token, size_t *i,
 	return (free(tmp), free(value), (void *)1);
 }
 
+/*
+token free au passage
+*/
 char	*expand_var(char *token, t_shell *shell)
 {
 	char	*result;

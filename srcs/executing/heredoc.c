@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/05 17:21:44 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 13:52:30 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	tmp = expand_var(line, sh);
 	if (tmp)
 		ft_putendl_fd(tmp, fd);
-	free(line);
 	free(tmp);
 	return (false);
 }
@@ -96,7 +95,7 @@ int	handle_heredoc(char *delim, t_shell *sh)
 
 	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		return (perror("heredoc"), 1);
+		return (perror("open"), 1);
 	signal(SIGINT, heredoc_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	while (!g_signal)

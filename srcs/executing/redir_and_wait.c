@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/05 18:05:14 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 13:48:24 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	process_heredocs(t_redirections *r, t_shell *sh)
 			if (handle_heredoc(r->target, sh) == 10)
 				return (10);
 			r->type = IS_INREDIR;
-			r->target = HEREDOC_FILE;
+			free(r->target);
+			r->target = ft_strdup(HEREDOC_FILE);
+			if (!r->target)
+				return (1);
 		}
 		r = r->next;
 	}
