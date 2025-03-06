@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 15:29:21 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 16:33:09 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,19 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (free(path), free_array(all_path), free_array(env_arr));
+	free(path);
 	path = find_executable(cmd->args[0], all_path);
 	if (!path)
-	{
-		printf("%s: command not found\n", cmd->args[0]);
-		free_array(env_arr);
-		exit(127);
-		return (free_utils(path, all_path, env_arr), exit(127));
-	}
+		return (printf("%s: command not found\n", cmd->args[0]),
+			free_cmds(sh->cmds), free_shell(sh),
+			free_utils(path, all_path, env_arr),
+			exit(127));
 	execve(path, cmd->args, env_arr);
 	perror("execve");
-	free(path);
-	free_array(all_path);
-	free_array(env_arr);
-	exit(126);
+	return (perror("execve"),
+			free_cmds(sh->cmds), free_shell(sh),
+			free_utils(path, all_path, env_arr),
+			exit(126));
 }
 
 static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])

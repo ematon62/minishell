@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:32:25 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/05 17:20:57 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 16:40:48 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	builtin_exit(char **args, t_shell *sh)
 		else
 			exit_code = ft_atoi(args[1]);
 	}
+	free_cmds(sh->cmds);
 	free_shell(sh);
 	// close fd
 	exit(exit_code);

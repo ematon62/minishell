@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:32:52 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/05 17:57:21 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:47:36 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ int	builtin_cd(char **args, t_shell *sh)
 
 	oldpwd = get_env_value(sh->env, "PWD");
 	if (!oldpwd)
-		oldpwd = ft_strdup("");
-	if (!args[1] || ft_strncmp(args[1], "~", 2) == 0)
-		path = get_env_value(sh->env, "HOME");
-	else
-		path = args[1];
-	if (!path || chdir(path) != 0)
-		return (ft_putstr_fd("cd: invalid path\n", STDERR_FILENO), 1);
+		return (1);
+	if (!args[1])
+		return (ft_putstr_fd("cd: no argument\n", STDERR_FILENO),
+			free(oldpwd), 1);
+	path = args[1];
+	if (chdir(path) != 0)
+		return (ft_putstr_fd("cd: invalid path\n", STDERR_FILENO),
+		free(oldpwd), 1);
 	getcwd(cwd, PATH_MAX);
 	update_env_var(&sh->env, "OLDPWD", oldpwd);
+	free(oldpwd);
 	update_env_var(&sh->env, "PWD", cwd);
 	return (0);
 }
