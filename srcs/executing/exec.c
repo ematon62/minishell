@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 15:02:00 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 15:29:21 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 	close_pipes(fd_in, fd);
 	if (handle_redirections(cmd->redirs) != 0)
 		exit(1);
+	if (!cmd->args[0])
+	{
+		free_cmds(cmds);
+		free_shell(sh);
+		exit(EXIT_SUCCESS);
+	}
 	if (is_builtin(cmd->args[0]))
 		exit(exec_builtin(cmd, sh));
 	else
@@ -124,7 +130,7 @@ void	execute(t_cmds *cmds, t_shell *sh)
 	else if (!cmds->next && cmds->cmd->redirs
 		&& is_builtin(cmds->cmd->args[0]))
 		sh->exit_status = exec_redir_builtin(cmds->cmd, sh);
-	else if (cmds->cmd->args[0])
+	else if (cmds->cmd)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:22 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 14:52:20 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 15:24:57 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_pipes(int fd_in, int fd[2])
 {
-	if (fd_in != STDIN_FILENO)
+	if (fd_in > STDIN_FILENO)
 		close(fd_in);
 	if (fd[0] != -1)
 		close(fd[0]);
@@ -26,7 +26,7 @@ void	close_and_swap(int *fd_in, int fd[2])
 {
 	if (fd[1] != -1)
 		close(fd[1]);
-	if (*fd_in != STDIN_FILENO && *fd_in != -1)
+	if (*fd_in > STDIN_FILENO)
 		close(*fd_in);
 	*fd_in = fd[0];
 }
