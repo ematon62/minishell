@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 16:33:09 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:40:16 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,27 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 	path = get_env_value(sh->env, "PATH");
 	env_arr = env_to_array(sh->env);
 	if (!path ||!env_arr)
-		return (free(path), free_array(env_arr));
+		return (free(path), ft_free_toodee((void **)env_arr));
 	all_path = ft_split(path, ':');
 	if (!all_path)
-		return (free(path), free_array(all_path), free_array(env_arr));
+		return ;
 	free(path);
 	path = find_executable(cmd->args[0], all_path);
 	if (!path)
 		return (printf("%s: command not found\n", cmd->args[0]),
-			free_cmds(sh->cmds), free_shell(sh),
-			free_utils(path, all_path, env_arr),
+			free_sh_cmds(sh), free_path_var(path, all_path, env_arr),
 			exit(127));
 	execve(path, cmd->args, env_arr);
 	perror("execve");
 	return (perror("execve"),
-			free_cmds(sh->cmds), free_shell(sh),
-			free_utils(path, all_path, env_arr),
+			free_sh_cmds(sh), free_path_var(path, all_path, env_arr),
 			exit(126));
 }
 
 static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 {
 	t_cmd	*cmd;
+	int		status;
 
 	cmd = cmds->cmd;
 	signal(SIGINT, SIG_DFL);
@@ -74,13 +73,15 @@ static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 		exit(1);
 	if (!cmd->args[0])
 	{
-		free_cmds(cmds);
-		free_shell(sh);
+		free_sh_cmds(sh);
 		exit(EXIT_SUCCESS);
 	}
 	if (is_builtin(cmd->args[0]))
-		exit(exec_builtin(cmd, sh));
-	else
+	{
+		status = exec_builtin(cmd, sh);
+		free_sh_cmds(sh);
+		exit(status);	
+	}
 		exec_external(cmd, sh);
 }
 
@@ -116,14 +117,11 @@ static int	exec_pipeline(t_cmds *cmds, t_shell *sh)
 void	execute(t_cmds *cmds, t_shell *sh)
 {
 	int		status;
-	int		std_copy[2];
 
-	save_stdio(std_copy);
 	setup_signals();
 	g_signal = 1;
 	if (pre_process_heredocs(cmds, sh) == 10)
-		return (restore_stdio(std_copy), setup_signals(),
-			restore_stdio(std_copy));
+		return ;
 	if (!cmds->next && !cmds->cmd->redirs && is_builtin(cmds->cmd->args[0]))
 		sh->exit_status = exec_builtin(cmds->cmd, sh);
 	else if (!cmds->next && cmds->cmd->redirs
@@ -137,6 +135,5 @@ void	execute(t_cmds *cmds, t_shell *sh)
 		sh->exit_status = WEXITSTATUS(status);
 	}
 	g_signal = 0;
-	restore_stdio(std_copy);
 	setup_signals();
 }

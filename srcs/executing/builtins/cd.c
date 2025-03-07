@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:32:52 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 12:14:00 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:52:10 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int	builtin_cd(char **args, t_shell *sh)
 
 	if (!args[1])
 		return (ft_putstr_fd("cd: invalid arguments\n", STDERR_FILENO), 1);
-	else if (args[2])
+	if (!args[1][0])
+		return (0);
+	if (args[2])
 		return (ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO), 1);
 	if (check_path(args[1]))
 		return (1);

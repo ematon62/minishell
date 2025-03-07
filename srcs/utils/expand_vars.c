@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:49:22 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 11:25:16 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:56:13 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	*process_expansion(char **result, char *token, size_t *i,
 /*
 token free au passage
 */
-char	*expand_var(char *token, t_shell *shell)
+char	*expand_var(char *tok, t_shell *shell)
 {
 	char	*result;
 	size_t	i;
@@ -97,20 +97,20 @@ char	*expand_var(char *token, t_shell *shell)
 	in_single = false;
 	in_double = false;
 	i = 0;
-	while (result && token[i])
+	while (result && tok[i])
 	{
-		if (token[i] == '\'' && !in_double)
+		if (tok[i] == '\'' && !in_double)
 			in_single = !in_single;
-		if (token[i] == '\"' && !in_single)
+		if (tok[i] == '\"' && !in_single)
 			in_double = !in_double;
-		if (token[i] == '$' && token[i + 1] && !in_single)
+		if (tok[i] == '$' && tok[i + 1] && !in_single && tok[i + 1] != ' ')
 		{
-			if (!process_expansion(&result, token, &i, shell))
-				return (free(token), NULL);
+			if (!process_expansion(&result, tok, &i, shell))
+				return (free(tok), NULL);
 			continue ;
 		}
-		result = process_char(&result, token[i]);
+		result = process_char(&result, tok[i]);
 		i++;
 	}
-	return (free(token), result);
+	return (free(tok), result);
 }

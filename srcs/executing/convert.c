@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 15:29:49 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:30:41 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ char	**env_to_array(t_env_lst *env)
 	count = count_env_vars(env);
 	env_arr = malloc(sizeof(char *) * (count + 1));
 	if (!env_arr)
-		return (free_array(env_arr), NULL);
+		return (ft_free_toodee((void **)env_arr), NULL);
 	i = 0;
 	current = env;
 	while (current)
 	{
 		env_arr[i] = create_env_entry(current);
 		if (!env_arr[i])
-			return (free_array(env_arr), NULL);
+			return (ft_free_toodee((void **)env_arr), NULL);
 		i++;
 		current = current->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 14:21:50 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:31:57 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void			close_and_swap(int *fd_in, int fd[2]);
 void			save_stdio(int std_copy[2]);
 void			restore_stdio(int std_copy[2]);
 char			**env_to_array(t_env_lst *env);
-void			free_array(char **env_arr);
-void			free_utils(char *path, char **all_path, char **env_arr);
 
 /* Builtins */
 int				builtin_echo(char **args);
