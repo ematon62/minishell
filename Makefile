@@ -32,7 +32,7 @@ SRCS := $(SRCS_PATH)/main.c \
 		$(SRCS_PATH)/executing/redir_and_wait.c \
 		$(SRCS_PATH)/executing/redir_builtin.c \
 		$(SRCS_PATH)/executing/redirect.c \
-		$(SRCS_PATH)/executing/builtins/builtins_utils.c \
+		$(SRCS_PATH)/executing/builtins/env_utils.c \
 		$(SRCS_PATH)/executing/builtins/cd.c \
 		$(SRCS_PATH)/executing/builtins/echo.c \
 		$(SRCS_PATH)/executing/builtins/env.c \
