@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/05 17:58:46 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 10:45:48 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ int				exec_builtin(t_cmd *cmd, t_shell *shell);
 int				is_builtin(char *cmd);
 char			*build_path(char *old_path, char *cmd);
 char			*find_executable(char *cmd, char **paths);
-int				handle_heredoc(char *delim, t_shell *sh);
+int				handle_heredoc(char *delim, t_shell *sh, char *heredoc_file);
 int				wait_children(pid_t last_pid, int *status);
 int				exec_redir_builtin(t_cmd *cmd, t_shell *sh);
+void			cleanup_heredoc_files(t_cmds *cmds);
 
 /* Execution utils*/
 void			close_pipes(int fd_in, int fd[2]);

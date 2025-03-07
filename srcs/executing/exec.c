@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 16:33:09 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 09:58:14 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,20 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (free(path), free_array(all_path), free_array(env_arr));
-	free(path);
 	path = find_executable(cmd->args[0], all_path);
 	if (!path)
-		return (printf("%s: command not found\n", cmd->args[0]),
-			free_cmds(sh->cmds), free_shell(sh),
-			free_utils(path, all_path, env_arr),
-			exit(127));
+	{
+		printf("%s: command not found\n", cmd->args[0]);
+		free_array(env_arr);
+		exit(127);
+		return (free_utils(path, all_path, env_arr), exit(127));
+	}
 	execve(path, cmd->args, env_arr);
 	perror("execve");
-	return (perror("execve"),
-			free_cmds(sh->cmds), free_shell(sh),
-			free_utils(path, all_path, env_arr),
-			exit(126));
+	free(path);
+	free_array(all_path);
+	free_array(env_arr);
+	exit(126);
 }
 
 static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
@@ -70,14 +71,14 @@ static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 	if (cmds->next)
 		dup2(fd[1], STDOUT_FILENO);
 	close_pipes(fd_in, fd);
-	if (handle_redirections(cmd->redirs) != 0)
-		exit(1);
 	if (!cmd->args[0])
 	{
 		free_cmds(cmds);
 		free_shell(sh);
 		exit(EXIT_SUCCESS);
 	}
+	if (handle_redirections(cmd->redirs) != 0)
+		exit(1);
 	if (is_builtin(cmd->args[0]))
 		exit(exec_builtin(cmd, sh));
 	else
@@ -137,6 +138,7 @@ void	execute(t_cmds *cmds, t_shell *sh)
 		sh->exit_status = WEXITSTATUS(status);
 	}
 	g_signal = 0;
+	cleanup_heredoc_files(cmds);
 	restore_stdio(std_copy);
 	setup_signals();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_and_wait.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 13:48:24 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 09:08:05 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,6 @@ void	print_redir_error(char *file)
 	ft_putstr_fd("bash: ", STDERR_FILENO);
 	ft_putstr_fd(file, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-}
-
-int	process_heredocs(t_redirections *r, t_shell *sh)
-{
-	g_signal = 0;
-	while (r)
-	{
-		if (r->type == IS_HEREDOC)
-		{
-			if (handle_heredoc(r->target, sh) == 10)
-				return (10);
-			r->type = IS_INREDIR;
-			free(r->target);
-			r->target = ft_strdup(HEREDOC_FILE);
-			if (!r->target)
-				return (1);
-		}
-		r = r->next;
-	}
-	g_signal = 1;
-	return (0);
 }
 
 void	create_output_files(t_redirections *r, t_redirections **last_output)

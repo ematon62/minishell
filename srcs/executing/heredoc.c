@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 13:52:30 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 09:06:14 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	return (false);
 }
 
-int	handle_heredoc(char *delim, t_shell *sh)
+int	handle_heredoc(char *delim, t_shell *sh, char *heredoc_file)
 {
 	int		fd;
 
-	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open(heredoc_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (perror("open"), 1);
 	signal(SIGINT, heredoc_sigint);
@@ -105,14 +105,6 @@ int	handle_heredoc(char *delim, t_shell *sh)
 	}
 	close(fd);
 	if (g_signal == 130)
-		return (unlink(HEREDOC_FILE), 10);
-	// fd = open(HEREDOC_FILE, O_RDONLY);
-	// if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
-	// {
-	// 	if (fd >= 0)
-	// 		close(fd);
-	// 	return (perror("heredoc reopen"), unlink(HEREDOC_FILE));
-	// }
-	// unlink(HEREDOC_FILE);
+		return (unlink(heredoc_file), 10);
 	return (close(fd));
 }

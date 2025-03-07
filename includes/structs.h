@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:50:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/05 17:04:24 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 10:44:45 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_shell
 {
 	t_env_lst	*env;
 	t_cmds		*cmds;
+	int heredoc_counter;
 	int			exit_status;
 }	t_shell;
 

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:33:22 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 17:13:43 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:23:51 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,16 @@ static void	sigint_handler(int sig)
 	g_signal = 130;
 }
 
-// static void	sigquit_handler(int sig)
-// {
-// 	(void)sig;
-// 	if (g_signal == 1)
-// 		write(2, "Quit (core dumped)\n", 19);
-// 	g_signal = 131;
-// }
+static void	sigquit_handler(int sig)
+{
+	(void)sig;
+	if (g_signal == 1)
+		write(2, "Quit (core dumped)\n", 19);
+	g_signal = 131;
+}
 
 void	setup_signals(void)
 {
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-	//replace with SIG IGN
+	signal(SIGQUIT, sigquit_handler);
 }
