@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/06 13:48:24 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:21:40 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void	print_redir_error(char *file)
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 }
 
-int	process_heredocs(t_redirections *r, t_shell *sh)
+int	process_heredocs(t_redirections *r, t_shell *sh, char *hdfile)
 {
 	g_signal = 0;
 	while (r)
 	{
 		if (r->type == IS_HEREDOC)
 		{
-			if (handle_heredoc(r->target, sh) == 10)
+			if (handle_heredoc(r->target, sh, hdfile) == 10)
 				return (10);
 			r->type = IS_INREDIR;
 			free(r->target);
-			r->target = ft_strdup(HEREDOC_FILE);
+			r->target = ft_strdup(hdfile);
 			if (!r->target)
 				return (1);
 		}
