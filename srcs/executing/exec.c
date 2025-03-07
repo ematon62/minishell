@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 16:40:16 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 17:27:00 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 			free_sh_cmds(sh), free_path_var(path, all_path, env_arr),
 			exit(127));
 	execve(path, cmd->args, env_arr);
-	perror("execve");
-	return (perror("execve"),
-			free_sh_cmds(sh), free_path_var(path, all_path, env_arr),
-			exit(126));
+	return (perror("execve"), free_sh_cmds(sh),
+			free_path_var(path, all_path, env_arr), exit(126));
 }
 
 static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
@@ -102,12 +100,10 @@ static int	exec_pipeline(t_cmds *cmds, t_shell *sh)
 		pid = fork();
 		if (pid < 0)
 			return (perror("fork"), ERROR);
-		if (pid == 0)
-		{
+		if (!pid)
 			exec_child(cmds, sh, fd_in, fd);
-			exit(EXIT_FAILURE);
-		}
-		close_and_swap(&fd_in, fd);
+		if (cmds->next)
+			close_and_swap(&fd_in, fd);
 		cmds = cmds->next;
 	}
 	close(fd_in);

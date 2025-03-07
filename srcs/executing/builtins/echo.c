@@ -6,45 +6,54 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:34:35 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/05 17:20:49 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 18:10:36 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-int	cmp(char *n)
+static bool	check_n(char *str)
 {
-	int	i;
-	int	print;
+	int		i;
 
 	i = 1;
-	print = 1;
-	while (n[i] != '\0')
+	while (str[i])
 	{
-		if (n[i] != 'n')
-			print = 0;
+		if (str[i] != 'n')
+			return (false);
 		i++;
 	}
-	return (print);
+	return (true);
+}
+
+static bool	is_option(char *str, bool *newline, int *i)
+{
+	if (str && str[0] == '-' && str[1])
+	{
+		if (check_n(str))
+		{
+			*newline = false;
+			*i += 1;
+			return (true);
+		}
+	}
+	return (false);
 }
 
 int	builtin_echo(char **args)
 {
-	int	i;
-	int	newline;
+	int		i;
+	bool	newline;
+	bool	is_words;
 
 	i = 1;
-	newline = 1;
-	if (args[1] && ft_strncmp(args[1], "-", 1) == 0)
-	{
-		if (cmp(args[1]))
-		{
-			newline = 0;
-			i = 2;
-		}
-	}
+	newline = true;
+	is_words = false;
 	while (args[i])
 	{
+		if (!is_words && is_option(args[i], &newline, &i))
+			continue ;
+		is_words = true;
 		ft_putstr_fd(args[i], STDOUT_FILENO);
 		if (args[++i])
 			ft_putchar_fd(' ', STDOUT_FILENO);
