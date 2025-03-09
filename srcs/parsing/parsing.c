@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 19:33:58 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 21:26:32 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ t_cmds	*parse(char *input, t_shell *shell)
 	if (!check_tokens(tokens))
 		return (free_tokens_lst(tokens), NULL);
 	expand_dollars(tokens, shell);
+	if (is_whitespace(tokens->token))
+		return (NULL);
 	remove_quotes(tokens);
 	cmds = tokens_to_cmds(tokens);
 	free_tokens_lst(tokens);

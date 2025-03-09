@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/09 21:08:53 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 21:19:54 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ void	execute(t_cmds *cmds, t_shell *sh)
 		status = exec_pipeline(cmds, sh);
 		sh->exit_status = WEXITSTATUS(status);
 	}
-	g_signal = 0;
 	cleanup_heredoc_files(cmds);
 	setup_signals();
 }
