@@ -6,7 +6,7 @@
 /*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:21:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 10:45:40 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/08 20:10:21 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,43 +31,50 @@ int	exec_redir_builtin(t_cmd *cmd, t_shell *sh)
 int	pre_process_heredocs(t_cmds *cmds, t_shell *sh)
 {
 	t_cmds	*current;
+	int		i;
+	char	*hdfile;
+	char	*itoa;
 
 	current = cmds;
+	i = 0;
 	while (current)
 	{
-		g_signal = 0;
-		if (process_heredocs(current->cmd->redirs, sh) == 10)
+		itoa = ft_itoa(i);
+		if (!itoa)
+			return (free_cmds(cmds), free_shell(sh),
+				exit_error("malloc"), 1);
+		hdfile = ft_strjoin(HEREDOC_FILE, itoa);
+		if (!hdfile)
+			return (free_cmds(cmds), free_shell(sh),
+				free(itoa), exit_error("malloc"), 1);
+		if (process_heredocs(current->cmd->redirs, sh, hdfile) == 10)
 			return (10);
+		free(itoa);
+		free(hdfile);
+		i++;
 		current = current->next;
-		g_signal = 1;
 	}
 	return (0);
 }
 
-int	process_heredocs(t_redirections *r, t_shell *sh)
+int	process_heredocs(t_redirections *r, t_shell *sh, char *hdfile)
 {
-	char	*heredoc_file;
-
+	g_signal = 0;
 	while (r)
 	{
 		if (r->type == IS_HEREDOC)
 		{
-			heredoc_file = ft_strjoin(HEREDOC_FILE, ft_itoa(sh->heredoc_counter));
-			printf("%s\n", heredoc_file);
-			if (!heredoc_file)
-				return (10); 
-			if (handle_heredoc(r->target, sh, heredoc_file) == 10)
-				return (free(heredoc_file), 10);
-			free(r->target);
-			r->target = ft_strdup(heredoc_file);
-			if (!r->target)
-				return (free(heredoc_file), 10); 
+			if (handle_heredoc(r->target, sh, hdfile) == 10)
+				return (10);
 			r->type = IS_INREDIR;
-			free(heredoc_file),
-			sh->heredoc_counter++;
+			free(r->target);
+			r->target = ft_strdup(hdfile);
+			if (!r->target)
+				return (1);
 		}
 		r = r->next;
 	}
+	g_signal = 1;
 	return (0);
 }
 

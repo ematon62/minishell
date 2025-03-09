@@ -6,7 +6,7 @@
 /*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 09:06:14 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/09 00:55:53 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ char	*find_executable(char *cmd, char **paths)
 	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 	{
 		if ((access(cmd, X_OK) == 0))
-			return (strdup(cmd));
+			return (ft_strdup(cmd));
 		return (NULL);
 	}
+	if ((!access(cmd, X_OK)))
+		return (ft_strdup(cmd));
 	while (*paths)
 	{
 		path = build_path(*paths, cmd);
@@ -64,7 +66,8 @@ static void	heredoc_sigint(int sig)
 {
 	(void)sig;
 	g_signal = 130;
-	close(STDIN_FILENO);
+	write(1, "\n", 1);
+	rl_done = 1;
 }
 
 static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
@@ -72,12 +75,13 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	char	*line;
 	char	*tmp;
 
-	signal(SIGINT, heredoc_sigint);
-	signal(SIGQUIT, SIG_IGN);
+	g_signal = 0; 
 	line = readline("> ");
+	if (g_signal == 130)
+		return (free(line), true);
 	if ((!line || ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0))
 	{
-		if (!line && !((g_signal == 130) || (g_signal == 131)))
+		if (!line && (g_signal != 130))
 			write(2, "warning: here-doc delimited by end-of-file\n", 43);
 		free(line);
 		return (true);
@@ -89,22 +93,27 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	return (false);
 }
 
-int	handle_heredoc(char *delim, t_shell *sh, char *heredoc_file)
+int	handle_heredoc(char *delim, t_shell *sh, char *hdfile)
 {
 	int		fd;
 
-	fd = open(heredoc_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-		return (perror("open"), 1);
 	signal(SIGINT, heredoc_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	while (!g_signal)
+	fd = open(hdfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd < 0)
+		return (perror("open"), 1);
+	while (1)
 	{
 		if (add_line_and_free(fd, sh, delim))
 			break ;
+		if (g_signal == 130)
+			break;
 	}
 	close(fd);
 	if (g_signal == 130)
-		return (unlink(heredoc_file), 10);
-	return (close(fd));
+	{
+		g_signal = 0;
+		return (cleanup_heredoc_files(sh->cmds), 10);
+	}
+	return (0);
 }

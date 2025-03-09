@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/06 14:26:54 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/07 19:33:58 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,17 @@ t_cmds	*parse(char *input, t_shell *shell)
 {
 	t_token_lst	*tokens;
 	t_cmds		*cmds;
-	char		*vars;
 
 	if (is_unclosed_quote(input))
 		return (free(input), ft_putstr_fd(MATCHING, STDERR_FILENO), NULL);
-	vars = expand_var(input, shell);
-	if (!vars)
-		return (free_shell(shell),
-			exit_error("malloc"), NULL);
-	if (is_whitespace(vars))
-		return (free(vars), NULL);
-	tokens = lexer(vars);
+	if (is_whitespace(input))
+		return (free(input), NULL);
+	tokens = lexer(input);
 	if (!tokens)
 		return (free_shell(shell), exit_error("malloc"), NULL);
 	if (!check_tokens(tokens))
 		return (free_tokens_lst(tokens), NULL);
+	expand_dollars(tokens, shell);
 	remove_quotes(tokens);
 	cmds = tokens_to_cmds(tokens);
 	free_tokens_lst(tokens);

@@ -6,7 +6,7 @@
 /*   By: cisse <cisse@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 10:45:48 by cisse            ###   ########.fr       */
+/*   Updated: 2025/03/08 19:44:07 by cisse            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 extern volatile sig_atomic_t	g_signal;
 
 void			setup_signals(void);
+void			sigquit_handler(int sig);
+void			sigint_handler(int sig);
 
 /* Execution */
 void			execute(t_cmds *cmds, t_shell *shell);
@@ -34,7 +36,7 @@ int				exec_builtin(t_cmd *cmd, t_shell *shell);
 int				is_builtin(char *cmd);
 char			*build_path(char *old_path, char *cmd);
 char			*find_executable(char *cmd, char **paths);
-int				handle_heredoc(char *delim, t_shell *sh, char *heredoc_file);
+int				handle_heredoc(char *delim, t_shell *sh, char *hdfile);
 int				wait_children(pid_t last_pid, int *status);
 int				exec_redir_builtin(t_cmd *cmd, t_shell *sh);
 void			cleanup_heredoc_files(t_cmds *cmds);
@@ -45,8 +47,6 @@ void			close_and_swap(int *fd_in, int fd[2]);
 void			save_stdio(int std_copy[2]);
 void			restore_stdio(int std_copy[2]);
 char			**env_to_array(t_env_lst *env);
-void			free_array(char **env_arr);
-void			free_utils(char *path, char **all_path, char **env_arr);
 
 /* Builtins */
 int				builtin_echo(char **args);
@@ -68,6 +68,6 @@ t_redirections	*find_last_input_file(t_redirections *r, int *error,
 					char **err_file);
 void			create_output_files(t_redirections *r,
 					t_redirections **last_output);
-int				process_heredocs(t_redirections *r, t_shell *sh);
+int				process_heredocs(t_redirections *r, t_shell *sh, char *hdfile);
 int				pre_process_heredocs(t_cmds *cmds, t_shell *sh);
 void			print_redir_error(char *file);
