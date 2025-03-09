@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:21:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 14:17:29 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 18:28:12 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,21 @@ int	exec_redir_builtin(t_cmd *cmd, t_shell *sh)
 	return (status);
 }
 
-int	pre_process_heredocs(t_cmds *cmds, t_shell *sh)
+void	cleanup_heredoc_files(t_cmds *cmds)
 {
-	t_cmds	*current;
-	int		i;
-	char	*hdfile;
-	char	*itoa;
+	t_cmds *current_cmd;
+	t_redirections *current_redir;
 
-	current = cmds;
-	i = 0;
-	while (current)
+	current_cmd = cmds;
+	while (current_cmd)
 	{
-		itoa = ft_itoa(i);
-		if (!itoa)
-			return (free_cmds(cmds), free_shell(sh),
-				exit_error("malloc"), 1);
-		hdfile = ft_strjoin(HEREDOC_FILE, itoa);
-		if (!hdfile)
-			return (free_cmds(cmds), free_shell(sh),
-				free(itoa), exit_error("malloc"), 1);
-		if (process_heredocs(current->cmd->redirs, sh, hdfile) == 10)
-			return (10);
-		free(itoa);
-		free(hdfile);
-		i++;
-		current = current->next;
+		current_redir = current_cmd->cmd->redirs;
+		while (current_redir)
+		{
+			if (current_redir->type == IS_HEREDOC)
+				unlink(current_redir->target);
+			current_redir = current_redir->next;
+		}
+		current_cmd = current_cmd->next;
 	}
-	return (0);
 }

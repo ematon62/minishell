@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 15:31:57 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 18:56:54 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 extern volatile sig_atomic_t	g_signal;
 
 void			setup_signals(void);
+void			heredoc_sigint(int sig);
+void			sigint_handler(int sig);
+void			child_sigquit(int sig);
+void			child_sigint(int sig);
+
 
 /* Execution */
 void			execute(t_cmds *cmds, t_shell *shell);
@@ -68,3 +73,4 @@ void			create_output_files(t_redirections *r,
 int				process_heredocs(t_redirections *r, t_shell *sh, char *hdfile);
 int				pre_process_heredocs(t_cmds *cmds, t_shell *sh);
 void			print_redir_error(char *file);
+void			cleanup_heredoc_files(t_cmds *cmds);

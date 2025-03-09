@@ -28,6 +28,7 @@ SRCS := $(SRCS_PATH)/main.c \
 		$(SRCS_PATH)/executing/exec.c \
 		$(SRCS_PATH)/executing/convert.c \
 		$(SRCS_PATH)/executing/exec_utils.c \
+		$(SRCS_PATH)/executing/find_executable.c \
 		$(SRCS_PATH)/executing/heredoc.c \
 		$(SRCS_PATH)/executing/redir_and_wait.c \
 		$(SRCS_PATH)/executing/redir_builtin.c \

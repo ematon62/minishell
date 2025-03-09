@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 14:21:40 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 18:27:55 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,6 @@ void	print_redir_error(char *file)
 	ft_putstr_fd("bash: ", STDERR_FILENO);
 	ft_putstr_fd(file, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-}
-
-int	process_heredocs(t_redirections *r, t_shell *sh, char *hdfile)
-{
-	g_signal = 0;
-	while (r)
-	{
-		if (r->type == IS_HEREDOC)
-		{
-			if (handle_heredoc(r->target, sh, hdfile) == 10)
-				return (10);
-			r->type = IS_INREDIR;
-			free(r->target);
-			r->target = ft_strdup(hdfile);
-			if (!r->target)
-				return (1);
-		}
-		r = r->next;
-	}
-	g_signal = 1;
-	return (0);
 }
 
 void	create_output_files(t_redirections *r, t_redirections **last_output)
@@ -73,7 +52,7 @@ t_redirections	*find_last_input_file(t_redirections *r, int *error,
 	last_input = NULL;
 	while (r)
 	{
-		if (r->type == IS_INREDIR)
+		if (r->type == IS_INREDIR || r->type == IS_HEREDOC)
 		{
 			fd = open(r->target, O_RDONLY);
 			if (fd < 0)

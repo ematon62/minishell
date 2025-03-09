@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 17:27:00 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 18:53:29 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 	int		status;
 
 	cmd = cmds->cmd;
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 	dup2(fd_in, STDIN_FILENO);
 	if (cmds->next)
 		dup2(fd[1], STDOUT_FILENO);
@@ -93,6 +91,8 @@ static int	exec_pipeline(t_cmds *cmds, t_shell *sh)
 	fd[0] = -1;
 	fd[1] = -1;
 	fd_in = dup(STDIN_FILENO);
+	signal(SIGINT, child_sigint);
+	signal(SIGQUIT, child_sigquit);
 	while (cmds)
 	{
 		if (cmds->next && pipe(fd) < 0)
@@ -113,11 +113,13 @@ static int	exec_pipeline(t_cmds *cmds, t_shell *sh)
 void	execute(t_cmds *cmds, t_shell *sh)
 {
 	int		status;
+	int		std_copy[2];
 
 	setup_signals();
+	save_stdio(std_copy);
 	g_signal = 1;
 	if (pre_process_heredocs(cmds, sh) == 10)
-		return ;
+		return (restore_stdio(std_copy));
 	if (!cmds->next && !cmds->cmd->redirs && is_builtin(cmds->cmd->args[0]))
 		sh->exit_status = exec_builtin(cmds->cmd, sh);
 	else if (!cmds->next && cmds->cmd->redirs
@@ -125,11 +127,13 @@ void	execute(t_cmds *cmds, t_shell *sh)
 		sh->exit_status = exec_redir_builtin(cmds->cmd, sh);
 	else if (cmds->cmd)
 	{
+		restore_stdio(std_copy);
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		status = exec_pipeline(cmds, sh);
 		sh->exit_status = WEXITSTATUS(status);
 	}
 	g_signal = 0;
+	cleanup_heredoc_files(cmds);
 	setup_signals();
 }

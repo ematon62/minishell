@@ -6,68 +6,11 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 17:08:36 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 18:56:58 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-
-char	*build_path(char *old_path, char *cmd)
-{
-	char	*path;
-	int		path_len;
-	int		i;
-	int		j;
-
-	if (!old_path || !cmd)
-		return (NULL);
-	path_len = ft_strlen(old_path) + ft_strlen(cmd);
-	path = malloc((path_len + 2) * sizeof(char));
-	if (!path)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (old_path[i])
-		path[j++] = old_path[i++];
-	path[j++] = '/';
-	i = 0;
-	while (cmd[i])
-		path[j++] = cmd[i++];
-	path[j] = '\0';
-	return (path);
-}
-
-char	*find_executable(char *cmd, char **paths)
-{
-	char	*path;
-
-	if (!cmd || !paths)
-		return (NULL);
-	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
-	{
-		if ((access(cmd, X_OK) == 0))
-			return (ft_strdup(cmd));
-		return (NULL);
-	}
-	if ((!access(cmd, X_OK)))
-		return (ft_strdup(cmd));
-	while (*paths)
-	{
-		path = build_path(*paths, cmd);
-		if (path && (access(path, X_OK) == 0))
-			return (path);
-		free(path);
-		paths++;
-	}
-	return (NULL);
-}
-
-static void	heredoc_sigint(int sig)
-{
-	(void)sig;
-	g_signal = 130;
-	close(STDIN_FILENO);
-}
 
 static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 {
@@ -99,7 +42,6 @@ int	handle_heredoc(char *delim, t_shell *sh, char *hdfile)
 	if (fd < 0)
 		return (perror("open"), 1);
 	signal(SIGINT, heredoc_sigint);
-	signal(SIGQUIT, SIG_IGN);
 	while (!g_signal)
 	{
 		if (add_line_and_free(fd, sh, delim))
@@ -107,6 +49,57 @@ int	handle_heredoc(char *delim, t_shell *sh, char *hdfile)
 	}
 	close(fd);
 	if (g_signal == 130)
-		return (unlink(hdfile), 10);
+		return (unlink(hdfile), cleanup_heredoc_files(sh->cmds),
+			free(hdfile), 10);
 	return (close(fd));
+}
+
+int	process_heredocs(t_redirections *r, t_shell *sh, char *hdfile)
+{
+	g_signal = 0;
+	while (r)
+	{
+		if (r->type == IS_HEREDOC)
+		{
+			if (handle_heredoc(r->target, sh, hdfile) == 10)
+				return (10);
+			r->type = IS_HEREDOC;
+			free(r->target);
+			r->target = ft_strdup(hdfile);
+			if (!r->target)
+				return (1);
+		}
+		r = r->next;
+	}
+	g_signal = 1;
+	return (0);
+}
+
+int	pre_process_heredocs(t_cmds *cmds, t_shell *sh)
+{
+	t_cmds	*current;
+	int		i;
+	char	*hdfile;
+	char	*itoa;
+
+	current = cmds;
+	i = 0;
+	while (current)
+	{
+		itoa = ft_itoa(i);
+		if (!itoa)
+			return (free_cmds(cmds), free_shell(sh),
+				exit_error("malloc"), 1);
+		hdfile = ft_strjoin(HEREDOC_FILE, itoa);
+		if (!hdfile)
+			return (free_cmds(cmds), free_shell(sh),
+				free(itoa), exit_error("malloc"), 1);
+		free(itoa);
+		if (process_heredocs(current->cmd->redirs, sh, hdfile) == 10)
+			return (10);
+		free(hdfile);
+		i++;
+		current = current->next;
+	}
+	return (0);
 }
