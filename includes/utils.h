@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 15:37:15 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 21:08:03 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 //Gestion d'erreur
 void			exit_error(char *s);
+bool 			is_directory(char *path);
+int				check_invalid_path(char *path, t_cmd *cmd, t_shell *sh);
 
 //Listes chainees
 t_env_lst		*lst_env_new(char *key, char *value);

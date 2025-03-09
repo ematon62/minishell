@@ -6,20 +6,25 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:32:52 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 16:52:10 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 20:51:41 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-static bool	check_path(char *path)
+bool is_directory(char *path)
 {
 	struct stat	path_stat;
 
 	stat(path, &path_stat);
+	return (S_ISDIR(path_stat.st_mode));
+}
+
+bool	check_path(char *path)
+{
 	if (access(path, F_OK))
 		return (ft_putstr_fd("cd: No such file or directory\n", 2), 1);
-	if (!S_ISDIR(path_stat.st_mode))
+	if (!is_directory(path))
 		return (ft_putstr_fd("cd: Not a directory\n", STDERR_FILENO), 1);
 	if (access(path, X_OK))
 		return (ft_putstr_fd("cd: ", 2), ft_putstr_fd(path, 2),

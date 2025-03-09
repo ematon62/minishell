@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:27:40 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/09 18:31:13 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 20:22:42 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,14 @@ char	*find_executable(char *cmd, char **paths)
 		return (NULL);
 	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 	{
-		if ((access(cmd, X_OK) == 0))
+		if ((!access(cmd, F_OK)))
 			return (ft_strdup(cmd));
 		return (NULL);
 	}
-	if ((!access(cmd, X_OK)))
-		return (ft_strdup(cmd));
 	while (*paths)
 	{
 		path = build_path(*paths, cmd);
-		if (path && (access(path, X_OK) == 0))
+		if (path && (!access(path, F_OK)))
 			return (path);
 		free(path);
 		paths++;

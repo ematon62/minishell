@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:36:22 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/18 13:20:32 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 21:07:21 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,18 @@ void	exit_error(char *s)
 {
 	perror(s);
 	exit(EXIT_FAILURE);
+}
+
+int	check_invalid_path(char *path, t_cmd *cmd, t_shell *sh)
+{
+	if (!path)
+		return (printf("%s: No such file or directory\n", cmd->args[0]),
+			free_sh_cmds(sh), 127);
+	if (is_directory(path))
+		return (printf("%s: Is a directory\n", cmd->args[0]),
+			free_sh_cmds(sh), 126);
+	if (access(path, X_OK))
+		return (printf("%s: Permission denied\n", cmd->args[0]),
+			free_sh_cmds(sh), 126);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/09 18:53:29 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 21:08:53 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 	char	*path;
 	char	**all_path;
 	char	**env_arr;
+	int		check;
 
 	path = get_env_value(sh->env, "PATH");
 	env_arr = env_to_array(sh->env);
@@ -46,13 +47,14 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 		return ;
 	free(path);
 	path = find_executable(cmd->args[0], all_path);
-	if (!path)
-		return (printf("%s: command not found\n", cmd->args[0]),
-			free_sh_cmds(sh), free_path_var(path, all_path, env_arr),
-			exit(127));
+	check = check_invalid_path(path, cmd, sh);
+	if (check)
+	{
+		free_path_var(path, all_path, env_arr);
+		exit(check);
+	}
 	execve(path, cmd->args, env_arr);
-	return (perror("execve"), free_sh_cmds(sh),
-			free_path_var(path, all_path, env_arr), exit(126));
+	return (free_sh_cmds(sh), free_path_var(path, all_path, env_arr), exit(126));
 }
 
 static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
@@ -121,15 +123,16 @@ void	execute(t_cmds *cmds, t_shell *sh)
 	if (pre_process_heredocs(cmds, sh) == 10)
 		return (restore_stdio(std_copy));
 	if (!cmds->next && !cmds->cmd->redirs && is_builtin(cmds->cmd->args[0]))
+	{
+		restore_stdio(std_copy);
 		sh->exit_status = exec_builtin(cmds->cmd, sh);
+	}
 	else if (!cmds->next && cmds->cmd->redirs
 		&& is_builtin(cmds->cmd->args[0]))
 		sh->exit_status = exec_redir_builtin(cmds->cmd, sh);
 	else if (cmds->cmd)
 	{
 		restore_stdio(std_copy);
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
 		status = exec_pipeline(cmds, sh);
 		sh->exit_status = WEXITSTATUS(status);
 	}

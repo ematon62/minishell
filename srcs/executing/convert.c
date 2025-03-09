@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 15:30:41 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/09 21:02:16 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,3 @@ char	**env_to_array(t_env_lst *env)
 	return (env_arr);
 }
 
-void	free_array(char **env_arr)
-{
-	int	i;
-
-	if (!env_arr)
-		return ;
-	i = 0;
-	while (env_arr[i])
-	{
-		free(env_arr[i]);
-		i++;
-	}
-	free(env_arr);
-}
