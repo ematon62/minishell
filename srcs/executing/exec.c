@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/10 14:46:11 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:23:16 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	execute(t_cmds *cmds, t_shell *sh)
 {
 	int		std_copy[2];
 
-	setup_signals();
 	save_stdio(std_copy);
 	g_signal = 1;
 	if (pre_process_heredocs(cmds, sh) == 10)
@@ -134,5 +133,4 @@ void	execute(t_cmds *cmds, t_shell *sh)
 		exec_pipeline(cmds, sh);
 	}
 	cleanup_heredoc_files(cmds);
-	setup_signals();
 }

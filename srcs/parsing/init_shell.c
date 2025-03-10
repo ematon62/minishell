@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:39:38 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/05 17:06:40 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:19:12 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ t_env_lst	*get_env_vars(char **envp)
 	return (current);
 }
 
-t_shell	*init_shell(char **envp)
+t_shell	*init_shell(char **envp, int argc, char **argv)
 {
 	t_shell	*shell;
 
+	(void)argc;
+	(void)argv;
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
-		return (NULL);
+		exit_error("malloc");
 	shell->cmds = NULL;
 	shell->env = NULL;
 	shell->exit_status = 0;

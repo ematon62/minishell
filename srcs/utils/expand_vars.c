@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:49:22 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/07 14:56:13 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:59:48 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static char	*handle_dollar(char *input, size_t *i, t_shell *shell)
 	if (input[*i] == '?')
 	{
 		(*i)++;
+		if (g_signal == 130)
+			shell->exit_status = 130;
 		return (ft_itoa(shell->exit_status));
 	}
 	while (ft_isalnum(input[*i]) || input[*i] == '_')

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/10 13:50:54 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:59:38 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@
 #define READ_END 0
 #define ERROR 1
 #define SUCCESS 0
-
-/* Signals */
-extern volatile sig_atomic_t	g_signal;
-
-void			setup_signals(void);
-void			heredoc_sigint(int sig);
-void			sigint_handler(int sig);
-void			child_sigquit(int sig);
-void			child_sigint(int sig);
-
 
 /* Execution */
 void			execute(t_cmds *cmds, t_shell *shell);

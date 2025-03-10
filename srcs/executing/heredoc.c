@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/09 18:56:58 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:46:35 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	handle_heredoc(char *delim, t_shell *sh, char *hdfile)
 	close(fd);
 	if (g_signal == 130)
 		return (unlink(hdfile), cleanup_heredoc_files(sh->cmds),
-			free(hdfile), 10);
+			free(hdfile), sh->exit_status = 130, 10);
 	return (close(fd));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/10 14:18:30 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:52:46 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ t_cmds	*parse(char *input, t_shell *shell)
 	if (!tokens)
 		return (free_shell(shell), exit_error("malloc"), NULL);
 	if (!check_tokens(tokens))
-		return (free_tokens_lst(tokens), NULL);
+		return (free_tokens_lst(tokens), shell->exit_status = 2,
+			NULL);
 	expand_dollars(tokens, shell);
-	if (is_whitespace(tokens->token))
+	if (tokens->token && is_whitespace(tokens->token))
 		return (free_tokens_lst(tokens), NULL);
 	remove_quotes(tokens);
 	cmds = tokens_to_cmds(tokens);

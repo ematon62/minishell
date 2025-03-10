@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:40:24 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/05 14:35:44 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:18:10 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define SYNTAX "bash: syntax error\n"
 
 //Shell
-t_shell		*init_shell(char **envp);
+t_shell		*init_shell(char **envp, int argc, char **argv);
 
 //Lexer
 t_token_lst	*lexer(char *input);

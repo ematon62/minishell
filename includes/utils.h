@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/09 21:08:03 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:59:43 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 
 # include "libft.h"
 # include "structs.h"
+
+/* Signals */
+extern volatile sig_atomic_t	g_signal;
+
+void			setup_signals(void);
+void			heredoc_sigint(int sig);
+void			sigint_handler(int sig);
+void			child_sigquit(int sig);
+void			child_sigint(int sig);
 
 //Gestion d'erreur
 void			exit_error(char *s);
