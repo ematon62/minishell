@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/09 21:19:54 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 11:39:47 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	exec_builtin(t_cmd *cmd, t_shell *sh)
 	if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		return (builtin_env(sh->env));
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		return (builtin_exit(cmd->args, sh)); // close fd & free
+		return (builtin_exit(cmd->args, sh));
 	return (0);
 }
 
