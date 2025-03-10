@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/10 14:01:40 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:46:11 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 
 	path = get_env_value(sh->env, "PATH");
 	env_arr = env_to_array(sh->env);
-	if (!path ||!env_arr)
-		return (free(path), ft_free_toodee((void **)env_arr));
 	all_path = ft_split(path, ':');
-	if (!all_path)
-		return ;
 	free(path);
 	path = find_executable(cmd->args[0], all_path);
 	check = check_invalid_path(path, cmd, sh);
