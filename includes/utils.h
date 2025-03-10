@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:39:44 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/10 16:59:43 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:09:28 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			child_sigint(int sig);
 
 //Gestion d'erreur
 void			exit_error(char *s);
-bool 			is_directory(char *path);
+bool			is_directory(char *path);
 int				check_invalid_path(char *path, t_cmd *cmd, t_shell *sh);
 
 //Listes chainees

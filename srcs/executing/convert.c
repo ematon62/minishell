@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/09 21:02:16 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:11:11 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ char	**env_to_array(t_env_lst *env)
 	env_arr[i] = NULL;
 	return (env_arr);
 }
-

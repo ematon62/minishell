@@ -6,13 +6,13 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:32:52 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/09 20:51:41 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:13:28 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-bool is_directory(char *path)
+bool	is_directory(char *path)
 {
 	struct stat	path_stat;
 

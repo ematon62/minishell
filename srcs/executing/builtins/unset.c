@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:32 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 19:50:58 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:15:46 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ int	builtin_unset(char **args, t_shell *sh)
 		remove_env_var(&sh->env, args[i]);
 	return (0);
 }
-

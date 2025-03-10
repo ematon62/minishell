@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/10 15:23:16 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:12:05 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	exec_external(t_cmd *cmd, t_shell *sh)
 		exit(check);
 	}
 	execve(path, cmd->args, env_arr);
-	return (free_sh_cmds(sh), free_path_var(path, all_path, env_arr), exit(126));
+	return (free_sh_cmds(sh), free_path_var(path, all_path, env_arr),
+		exit(126));
 }
 
 static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
@@ -74,9 +75,9 @@ static void	exec_child(t_cmds *cmds, t_shell *sh, int fd_in, int fd[2])
 	{
 		status = exec_builtin(cmd, sh);
 		free_sh_cmds(sh);
-		exit(status);	
+		exit(status);
 	}
-		exec_external(cmd, sh);
+	exec_external(cmd, sh);
 }
 
 static int	exec_pipeline(t_cmds *cmds, t_shell *sh)

@@ -6,12 +6,11 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:32:25 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/10 12:07:02 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:13:51 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-
 
 static bool	check_overflow(char *str, int *n, int index)
 {

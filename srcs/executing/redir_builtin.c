@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:21:55 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/09 18:28:12 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:13:13 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	exec_redir_builtin(t_cmd *cmd, t_shell *sh)
 
 void	cleanup_heredoc_files(t_cmds *cmds)
 {
-	t_cmds *current_cmd;
-	t_redirections *current_redir;
+	t_cmds			*current_cmd;
+	t_redirections	*current_redir;
 
 	current_cmd = cmds;
 	while (current_cmd)
