@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:27:10 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/10 11:39:47 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:01:40 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,11 @@ static int	exec_pipeline(t_cmds *cmds, t_shell *sh)
 		cmds = cmds->next;
 	}
 	close(fd_in);
-	return (wait_children(pid, &status), status);
+	return (wait_children(pid, &status, sh));
 }
 
 void	execute(t_cmds *cmds, t_shell *sh)
 {
-	int		status;
 	int		std_copy[2];
 
 	setup_signals();
@@ -122,7 +121,8 @@ void	execute(t_cmds *cmds, t_shell *sh)
 	g_signal = 1;
 	if (pre_process_heredocs(cmds, sh) == 10)
 		return (restore_stdio(std_copy));
-	if (!cmds->next && !cmds->cmd->redirs && is_builtin(cmds->cmd->args[0]))
+	if (!cmds->next && !cmds->cmd->redirs
+		&& is_builtin(cmds->cmd->args[0]))
 	{
 		restore_stdio(std_copy);
 		sh->exit_status = exec_builtin(cmds->cmd, sh);
@@ -133,8 +133,9 @@ void	execute(t_cmds *cmds, t_shell *sh)
 	else if (cmds->cmd)
 	{
 		restore_stdio(std_copy);
-		status = exec_pipeline(cmds, sh);
-		sh->exit_status = WEXITSTATUS(status);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		exec_pipeline(cmds, sh);
 	}
 	cleanup_heredoc_files(cmds);
 	setup_signals();

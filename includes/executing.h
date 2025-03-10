@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/09 21:06:43 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:50:54 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				is_builtin(char *cmd);
 char			*build_path(char *old_path, char *cmd);
 char			*find_executable(char *cmd, char **paths);
 int				handle_heredoc(char *delim, t_shell *sh, char *hdfile);
-int				wait_children(pid_t last_pid, int *status);
+int				wait_children(pid_t last_pid, int *status, t_shell *sh);
 int				exec_redir_builtin(t_cmd *cmd, t_shell *sh);
 
 /* Execution utils*/

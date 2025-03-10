@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/09 21:18:02 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:57:43 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,29 @@ t_redirections	*find_last_input_file(t_redirections *r, int *error,
 	return (last_input);
 }
 
-int	wait_children(pid_t last_pid, int *status)
+int	wait_children(pid_t last_pid, int *status, t_shell *sh)
 {
 	pid_t	pid;
-	int		exit_status;
+	int		sig;
 
-	exit_status = 0;
 	pid = waitpid(-1, status, WUNTRACED);
 	while (pid > 0)
 	{
 		if (pid == last_pid)
 		{
 			if (WIFEXITED(*status))
-				exit_status = WEXITSTATUS(*status);
+				sh->exit_status = WEXITSTATUS(*status);
 			else if (WIFSIGNALED(*status))
-				exit_status = 128 + WTERMSIG(*status);
+			{
+				sig = WTERMSIG(*status);
+				if (sig == SIGINT)
+					sh->exit_status = 130;
+				else if (sig == SIGQUIT)
+					sh->exit_status = 131;
+			}
 		}
 		pid = waitpid(-1, status, WUNTRACED);
 	}
 	g_signal = 0;
-	return (exit_status);
+	return (sh->exit_status);
 }
