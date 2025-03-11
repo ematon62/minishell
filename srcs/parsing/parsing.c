@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/11 10:54:57 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/11 16:35:49 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ t_cmds	*parse(char *input, t_shell *shell)
 	t_cmds		*cmds;
 
 	if (is_unclosed_quote(input))
-		return (free(input), ft_putstr_fd(MATCHING, STDERR_FILENO), NULL);
+		return (free(input), ft_putstr_fd(MATCHING, STDERR_FILENO),
+			shell->exit_status = 2, NULL);
 	if (is_whitespace(input))
 		return (free(input), NULL);
 	tokens = lexer(input);
@@ -106,7 +107,7 @@ t_cmds	*parse(char *input, t_shell *shell)
 		return (free_tokens_lst(tokens), shell->exit_status = 2,
 			NULL);
 	expand_dollars(tokens, shell);
-	if (tokens->token && is_whitespace(tokens->token))
+	if (check_only_white(tokens))
 		return (free_tokens_lst(tokens), NULL);
 	remove_quotes(tokens);
 	cmds = tokens_to_cmds(tokens);

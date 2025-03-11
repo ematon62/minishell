@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/10 13:57:43 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/11 16:07:34 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	print_redir_error(char *file)
 {
-	ft_putstr_fd("bash: ", STDERR_FILENO);
 	ft_putstr_fd(file, STDERR_FILENO);
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 }

@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complete_pipe.c                                    :+:      :+:    :+:   */
+/*   check_only_white.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:21:21 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 13:51:50 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/11 16:35:25 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
 /*
-- tokens: liste de tokens après 1er appel du lexer
-- Si dernier token est une pipe, fonction est appelée
-pour complèter cette pipe (en vérifiant tokens au passage)
+Check si après expansion, il n'y a que du vide
 */
-bool	complete_pipe(t_token_lst *tokens, t_shell *shell)
+bool	check_only_white(t_token_lst *tokens)
 {
-	char		*read_line;
-	t_token_lst	*added_tokens;
+	t_token_lst	*current;
 
-	if (!check_tokens(tokens))
-		return (false);
-	while (tokens && token_lst_last(tokens)->type == IO_PIPE)
+	current = tokens;
+	while (current)
 	{
-		read_line = readline(">");
-		added_tokens = lexer(read_line);
-		if (!added_tokens)
-			return (free_tokens_lst(tokens), free_shell(shell),
-				exit_error("malloc"), false);
-		ft_lstadd_back((t_list **)tokens, (t_list *)added_tokens);
-		if (!check_tokens(tokens))
+		if (current->type == WORD && current->token
+			&& !is_whitespace(current->token))
 			return (false);
+		current = current->next;
 	}
 	return (true);
 }

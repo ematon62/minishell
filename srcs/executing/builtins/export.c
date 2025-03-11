@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:28:06 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/11 10:11:56 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/11 16:01:25 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static char	*get_value(char *eq)
 		return (NULL);
 }
 
+static void	vive_la_norme(char *key, char *val)
+{
+	free(key);
+	free(val);
+}
+
 int	builtin_export(char **args, t_shell *sh)
 {
 	char	*eq;
@@ -63,7 +69,8 @@ int	builtin_export(char **args, t_shell *sh)
 		}
 		else
 			update_env_var(&sh->env, key, val);
+		vive_la_norme(key, val);
 		args++;
 	}
-	return (free(key), free(val), ret);
+	return (ret);
 }
