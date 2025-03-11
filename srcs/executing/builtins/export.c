@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:28:06 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/10 17:16:04 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/11 10:11:56 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	print_export(t_env_lst *env)
 	while (env)
 	{
 		if (env->value)
-			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+			printf("%s=\"%s\"\n", env->key, env->value);
 		else
-			printf("declare -x %s\n", env->key);
+			printf("%s\n", env->key);
 		env = env->next;
 	}
 }
@@ -63,8 +63,7 @@ int	builtin_export(char **args, t_shell *sh)
 		}
 		else
 			update_env_var(&sh->env, key, val);
-		free(key);
 		args++;
 	}
-	return (ret);
+	return (free(key), free(val), ret);
 }
