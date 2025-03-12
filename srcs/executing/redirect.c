@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:20:55 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/12 13:28:11 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/12 13:43:47 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	handle_redirections(t_redirections *r)
 	create_output_files(r, &last_output, &err_file, &error);
 	if (error)
 		return (ft_putstr_fd(err_file, STDERR_FILENO),
-			ft_putstr_fd(": Permissions denied\n", STDERR_FILENO), 1);
+			ft_putstr_fd(": Permission denied\n", STDERR_FILENO), 1);
 	apply_redirections(r, last_input, last_output, &state);
 	return (0);
 }
