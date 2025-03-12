@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:13:34 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/11 16:07:34 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/12 13:27:13 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	print_redir_error(char *file)
 	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 }
 
-void	create_output_files(t_redirections *r, t_redirections **last_output)
+int	create_output_files(t_redirections *r, t_redirections **last_output,
+	char **err_file, int *error)
 {
 	int	fd;
 	int	flags;
@@ -33,34 +34,41 @@ void	create_output_files(t_redirections *r, t_redirections **last_output)
 				flags = O_WRONLY | O_CREAT | O_APPEND;
 			fd = open(r->target, flags, 0644);
 			if (fd < 0)
-				perror("open");
+			{
+				*error = 1;
+				*err_file = r->target;
+				return (1);
+			}
 			else
 				close(fd);
 			*last_output = r;
 		}
 		r = r->next;
 	}
+	return (0);
 }
 
-t_redirections	*find_last_input_file(t_redirections *r, int *error,
-				char **err_file)
+t_redirections	*find_last_input_file(t_redirections *r, int *error)
 {
 	t_redirections	*last_input;
-	int				fd;
 
 	last_input = NULL;
 	while (r)
 	{
 		if (r->type == IS_INREDIR || r->type == IS_HEREDOC)
 		{
-			fd = open(r->target, O_RDONLY);
-			if (fd < 0)
+			if (access(r->target, F_OK))
 			{
-				*err_file = r->target;
 				*error = 1;
-				return (last_input);
+				return (print_redir_error(r->target), last_input);
 			}
-			close(fd);
+			else if (access(r->target, R_OK))
+			{
+				*error = 1;
+				return (ft_putstr_fd(r->target, STDERR_FILENO),
+					ft_putstr_fd(": Permission denied\n", STDERR_FILENO),
+					last_input);
+			}
 			last_input = r;
 		}
 		r = r->next;

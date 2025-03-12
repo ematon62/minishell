@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 19:39:53 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/10 16:59:38 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/12 13:27:52 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int				exec_builtin(t_cmd *cmd, t_shell *shell);
 int				is_builtin(char *cmd);
 char			*build_path(char *old_path, char *cmd);
 char			*find_executable(char *cmd, char **paths);
-int				handle_heredoc(char *delim, t_shell *sh, char *hdfile);
 int				wait_children(pid_t last_pid, int *status, t_shell *sh);
 int				exec_redir_builtin(t_cmd *cmd, t_shell *sh);
 
@@ -56,11 +55,9 @@ char			*get_env_value(t_env_lst *env, const char *key);
 void			remove_env_var(t_env_lst **env, char *key);
 
 /* Redirs */
-t_redirections	*find_last_input_file(t_redirections *r, int *error,
-					char **err_file);
-void			create_output_files(t_redirections *r,
-					t_redirections **last_output);
-int				process_heredocs(t_redirections *r, t_shell *sh, char *hdfile);
-int				pre_process_heredocs(t_cmds *cmds, t_shell *sh);
+t_redirections	*find_last_input_file(t_redirections *r, int *error);
+int				create_output_files(t_redirections *r,
+					t_redirections **last_output, char **err, int *error);
+int				pre_process_heredocs(t_cmds *cmds, t_shell *sh, int *cpy);
 void			print_redir_error(char *file);
 void			cleanup_heredoc_files(t_cmds *cmds);

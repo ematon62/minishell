@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:26:31 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/11 16:05:32 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/12 11:16:07 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	char	*line;
 	char	*tmp;
 
-	signal(SIGINT, heredoc_sigint);
-	signal(SIGQUIT, SIG_IGN);
 	line = readline("> ");
 	if ((!line || ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0))
 	{
@@ -34,34 +32,56 @@ static bool	add_line_and_free(int fd, t_shell *sh, char *delim)
 	return (false);
 }
 
-int	handle_heredoc(char *delim, t_shell *sh, char *hdfile)
+static int	child_heredoc(char *hdfile, t_shell *sh, char *delim, int *cpy)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(hdfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		return (perror("open"), 1);
-	signal(SIGINT, heredoc_sigint);
+		return (free(hdfile), cleanup_heredoc_files(sh->cmds),
+			free_sh_cmds(sh), exit_error("open"), 1);
 	while (!g_signal)
 	{
 		if (add_line_and_free(fd, sh, delim))
 			break ;
 	}
 	close(fd);
+	restore_stdio(cpy);
 	if (g_signal == 130)
 		return (unlink(hdfile), cleanup_heredoc_files(sh->cmds),
-			free(hdfile), sh->exit_status = 130, 10);
+			free_sh_cmds(sh), free(hdfile),
+			exit(130), 10);
+	return (free(hdfile), free_sh_cmds(sh), exit(EXIT_SUCCESS), 0);
+}
+
+static int	this_heredoc(char *delim, t_shell *sh, char *hdfile, int *cpy)
+{
+	pid_t	pid;
+	int		status;
+
+	signal(SIGINT, heredoc_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	pid = fork();
+	if (pid < 0)
+		return (cleanup_heredoc_files(sh->cmds), restore_stdio(cpy),
+			free(hdfile), free_sh_cmds(sh), exit_error("fork"), 1);
+	if (!pid)
+		child_heredoc(hdfile, sh, delim, cpy);
+	wait_children(pid, &status, sh);
+	if (status)
+		return (restore_stdio(cpy), 10);
 	return (0);
 }
 
-int	process_heredocs(t_redirections *r, t_shell *sh, char *hdfile)
+static int	process_heredocs(t_redirections *r, t_shell *sh, char *hdfile,
+	int *cpy)
 {
 	g_signal = 0;
 	while (r)
 	{
 		if (r->type == IS_HEREDOC)
 		{
-			if (handle_heredoc(r->target, sh, hdfile) == 10)
+			if (this_heredoc(r->target, sh, hdfile, cpy) == 10)
 				return (10);
 			r->type = IS_HEREDOC;
 			free(r->target);
@@ -75,7 +95,7 @@ int	process_heredocs(t_redirections *r, t_shell *sh, char *hdfile)
 	return (0);
 }
 
-int	pre_process_heredocs(t_cmds *cmds, t_shell *sh)
+int	pre_process_heredocs(t_cmds *cmds, t_shell *sh, int *cpy)
 {
 	t_cmds	*current;
 	int		i;
@@ -88,15 +108,15 @@ int	pre_process_heredocs(t_cmds *cmds, t_shell *sh)
 	{
 		itoa = ft_itoa(i);
 		if (!itoa)
-			return (free_cmds(cmds), free_shell(sh),
+			return (free_cmds(cmds), free_shell(sh), restore_stdio(cpy),
 				exit_error("malloc"), 1);
 		hdfile = ft_strjoin(HEREDOC_FILE, itoa);
 		if (!hdfile)
-			return (free_cmds(cmds), free_shell(sh),
+			return (free_cmds(cmds), free_shell(sh), restore_stdio(cpy),
 				free(itoa), exit_error("malloc"), 1);
 		free(itoa);
-		if (process_heredocs(current->cmd->redirs, sh, hdfile) == 10)
-			return (10);
+		if (process_heredocs(current->cmd->redirs, sh, hdfile, cpy) == 10)
+			return (free(hdfile), 10);
 		free(hdfile);
 		i++;
 		current = current->next;
