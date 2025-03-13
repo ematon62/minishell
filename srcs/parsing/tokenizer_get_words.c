@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 19:03:25 by ematon            #+#    #+#             */
-/*   Updated: 2025/02/27 13:36:34 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/13 08:48:07 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*separate_next(char *str, int *i)
 
 	in_single = false;
 	in_double = false;
-	while (str[*i] && str[*i] == ' ')
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\r'))
 		*i += 1;
 	len = *i;
 	while (str[len])
