@@ -6,7 +6,7 @@
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:59:46 by ematon            #+#    #+#             */
-/*   Updated: 2025/03/11 16:56:09 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/13 17:50:51 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ t_cmds	*parse(char *input, t_shell *shell)
 			shell->exit_status = 2, NULL);
 	if (is_whitespace(input))
 		return (free(input), NULL);
+	add_history(input);
 	tokens = lexer(input);
 	if (!tokens)
 		return (free_shell(shell), exit_error("malloc"), NULL);

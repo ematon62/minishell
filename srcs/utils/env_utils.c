@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_utils.c                                   :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ematon <ematon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:33:04 by adcisse           #+#    #+#             */
-/*   Updated: 2025/03/07 19:42:31 by ematon           ###   ########.fr       */
+/*   Updated: 2025/03/13 17:53:25 by ematon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	update_env_var(t_env_lst **env, char *key, char *value)
 			{
 				free(current->value);
 				current->value = ft_strdup(value);
+				current->is_env = true;
 			}
 			return ;
 		}
